@@ -122,3 +122,28 @@
 @utility animate-fade-up {
   animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+@keyframes slow-pan {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1) rotate(0deg); }
+  50% { transform: translate3d(2%, -2%, 0) scale(1.2) rotate(3deg); }
+}
+@utility animate-slow-pan {
+  animation: slow-pan 14s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+@utility animate-scan {
+  animation: scan 4s ease-in-out infinite;
+}
+
+@keyframes type {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@utility animate-type {
+  animation: type 2.5s steps(30, end) infinite alternate;
+}
