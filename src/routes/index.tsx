@@ -6,9 +6,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Deepanjali Nagarkoti — Software Developer" },
-      { name: "description", content: "Software developer building fast, reliable web applications and developer tooling." },
+      { name: "description", content: "Software developer building fast, reliable web applications, APIs, and developer tooling." },
       { property: "og:title", content: "Deepanjali Nagarkoti — Software Developer" },
-      { property: "og:description", content: "Software developer building fast, reliable web applications and developer tooling." },
+      { property: "og:description", content: "Software developer building fast, reliable web applications, APIs, and developer tooling." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -20,25 +20,35 @@ type Project = {
   title: string;
   tag: string;
   year: string;
+  role: string;
+  description: string;
   stack: string[];
   href?: string;
   gradient: string;
+  terminal: { cmd: string; out: string };
 };
 
 const projects: Project[] = [
   {
     n: "01",
-    title: "Project One",
-    tag: "Full-stack Web App",
+    title: "EarnVault",
+    tag: "Cooperative Savings & Loan Platform",
     year: "2025",
-    stack: ["TypeScript", "React", "Node", "PostgreSQL"],
+    role: "Full-stack — Backend & Web Dashboard",
+    description:
+      "Full-stack microfinance platform for cooperatives: KYC and passbook onboarding, daily interest accrual credited monthly via cron, real-time updates over Socket.IO, and flexible loan disbursement with multiple repayment schedules. Monorepo with a NestJS API, Next.js admin dashboard, and a React Native PWA for members — built for emerging markets and slow networks, with i18n and expense tracking in progress.",
+    stack: ["NestJS", "Next.js", "React", "PostgreSQL", "Prisma", "Socket.IO", "Mapbox"],
     href: "#",
-    gradient: "from-indigo-500 via-fuchsia-500 to-orange-400",
+    gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+    terminal: { cmd: "$ pnpm nest start", out: "▸ EarnVault API ready · :3000 · cron: interest@0 0 1 * *" },
   },
 ];
 
+type View = "grid" | "list";
+
 function Portfolio() {
   const [dark, setDark] = useState(true);
+  const [view, setView] = useState<View>("grid");
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", !dark);
@@ -50,27 +60,69 @@ function Portfolio() {
         dark ? "bg-[#0b0b0d] text-white" : "bg-[#f4f2ee] text-[#0b0b0d]"
       } transition-colors duration-500 overflow-x-hidden`}
     >
-      <TopBar dark={dark} setDark={setDark} />
+      <TopBar dark={dark} setDark={setDark} view={view} setView={setView} />
       <Hero />
-      <Work />
+      <Work view={view} />
       <Footer />
     </main>
   );
 }
 
-function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => void }) {
+function TopBar({
+  dark,
+  setDark,
+  view,
+  setView,
+}: {
+  dark: boolean;
+  setDark: (v: boolean) => void;
+  view: View;
+  setView: (v: View) => void;
+}) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md">
       <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-6">
-        <div className="flex items-baseline gap-3 text-[13px] tracking-[0.14em]">
-          <span className="font-semibold uppercase">Deepanjali Nagarkoti</span>
-          <span className="opacity-50 uppercase hidden sm:inline">Software Developer</span>
-        </div>
-
-        <nav className="hidden md:flex items-center gap-8 text-[13px] tracking-[0.14em] uppercase">
+        <nav className="flex items-center gap-8 text-[13px] tracking-[0.14em] uppercase">
           <a href="#work" className="opacity-70 hover:opacity-100 transition-opacity">Work</a>
           <a href="#contact" className="opacity-70 hover:opacity-100 transition-opacity">Contact</a>
         </nav>
+
+        <div className="flex items-center gap-3">
+          <div
+            className={`inline-flex items-center rounded-full p-1 ${
+              dark ? "ring-1 ring-white/15" : "ring-1 ring-black/15"
+            }`}
+            role="tablist"
+            aria-label="View"
+          >
+            <button
+              onClick={() => setView("grid")}
+              aria-pressed={view === "grid"}
+              className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
+                view === "grid"
+                  ? dark
+                    ? "bg-white text-black"
+                    : "bg-black text-white"
+                  : "opacity-60 hover:opacity-100"
+              }`}
+            >
+              <GridIcon /> Grid
+            </button>
+            <button
+              onClick={() => setView("list")}
+              aria-pressed={view === "list"}
+              className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
+                view === "list"
+                  ? dark
+                    ? "bg-white text-black"
+                    : "bg-black text-white"
+                  : "opacity-60 hover:opacity-100"
+              }`}
+            >
+              <ListIcon /> List
+            </button>
+          </div>
+        </div>
 
         <div className="flex items-center gap-4 md:gap-6 text-[13px] tracking-[0.14em] uppercase">
           <a
@@ -113,6 +165,11 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
 function Hero() {
   return (
     <section className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-32">
+      <div className="text-[11px] tracking-[0.28em] uppercase opacity-60 mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span className="font-semibold opacity-100">Deepanjali Nagarkoti</span>
+        <span aria-hidden className="opacity-40">/</span>
+        <span>Software Developer</span>
+      </div>
       <div className="grid md:grid-cols-12 gap-10 items-end">
         <h1 className="md:col-span-8 font-display font-black leading-[0.92] tracking-[-0.03em] text-[clamp(3.5rem,12vw,13rem)]">
           Building<br />the web.
@@ -149,18 +206,26 @@ function useParallax(speed = 0.15) {
   return { ref, y };
 }
 
-function Work() {
+function Work({ view }: { view: View }) {
   return (
     <section id="work" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
       <div className="flex items-baseline justify-between mb-10 md:mb-14">
         <h2 className="text-xs uppercase tracking-[0.24em] opacity-60">(Selected Projects)</h2>
         <span className="text-xs uppercase tracking-[0.24em] opacity-40">2025 —</span>
       </div>
-      <div className="grid md:grid-cols-2 gap-6 md:gap-10">
-        {projects.map((p) => (
-          <ProjectCard key={p.n} p={p} />
-        ))}
-      </div>
+      {view === "grid" ? (
+        <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+          {projects.map((p) => (
+            <ProjectCard key={p.n} p={p} />
+          ))}
+        </div>
+      ) : (
+        <ul className="divide-y divide-current/15 border-y border-current/15">
+          {projects.map((p) => (
+            <ProjectRow key={p.n} p={p} />
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
@@ -171,12 +236,10 @@ function ProjectCard({ p }: { p: Project }) {
     <article ref={ref} className="group" id="contact">
       <a href={p.href ?? "#"} className="block">
         <div className="relative overflow-hidden rounded-lg aspect-[4/3] bg-black/20">
-          {/* Animated gradient preview */}
           <div
             className={`absolute -inset-8 bg-gradient-to-br ${p.gradient} animate-slow-pan will-change-transform`}
             style={{ transform: `translate3d(0, ${y}px, 0)` }}
           />
-          {/* Code-like overlay */}
           <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
           <div className="absolute inset-0 grid grid-rows-6 opacity-30">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -188,8 +251,8 @@ function ProjectCard({ p }: { p: Project }) {
             ))}
           </div>
           <div className="absolute left-5 top-5 right-5 font-mono text-[11px] text-white/80 leading-relaxed">
-            <div className="opacity-60">$ pnpm dev</div>
-            <div className="opacity-90 animate-type">▸ ready in 342ms · localhost:3000</div>
+            <div className="opacity-60">{p.terminal.cmd}</div>
+            <div className="opacity-90 animate-type">{p.terminal.out}</div>
           </div>
           <div className="absolute left-5 bottom-5 right-5 flex flex-wrap gap-2">
             {p.stack.map((s) => (
@@ -216,6 +279,47 @@ function ProjectCard({ p }: { p: Project }) {
   );
 }
 
+function ProjectRow({ p }: { p: Project }) {
+  const [open, setOpen] = useState(true);
+  return (
+    <li className="py-6 md:py-8">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full grid grid-cols-12 gap-4 items-baseline text-left"
+      >
+        <span className="col-span-1 font-mono text-xs opacity-40">{p.n}</span>
+        <span className="col-span-11 md:col-span-6 font-display text-2xl md:text-4xl tracking-[-0.02em]">
+          {p.title}
+        </span>
+        <span className="hidden md:block md:col-span-4 text-xs uppercase tracking-[0.2em] opacity-60">
+          {p.tag}
+        </span>
+        <span className="hidden md:block md:col-span-1 text-xs font-mono opacity-50 text-right">
+          {p.year}
+        </span>
+      </button>
+      {open && (
+        <div className="mt-5 grid grid-cols-12 gap-4">
+          <div className="col-start-1 md:col-start-2 col-span-12 md:col-span-7">
+            <p className="text-sm md:text-base leading-relaxed opacity-80">{p.description}</p>
+            <div className="mt-4 text-[11px] uppercase tracking-[0.2em] opacity-60">{p.role}</div>
+          </div>
+          <div className="col-start-1 md:col-start-9 col-span-12 md:col-span-4 flex flex-wrap gap-2 md:justify-end content-start">
+            {p.stack.map((s) => (
+              <span
+                key={s}
+                className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </li>
+  );
+}
+
 function Footer() {
   return (
     <footer className="border-t border-current/15">
@@ -228,6 +332,23 @@ function Footer() {
   );
 }
 
+function GridIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <rect x="3" y="3" width="8" height="8" rx="1" />
+      <rect x="13" y="3" width="8" height="8" rx="1" />
+      <rect x="3" y="13" width="8" height="8" rx="1" />
+      <rect x="13" y="13" width="8" height="8" rx="1" />
+    </svg>
+  );
+}
+function ListIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+      <path d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  );
+}
 function GitHubIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
