@@ -189,13 +189,160 @@ function useParallax(speed = 0.15) {
   return { ref, y };
 }
 
+function SectionHead({ label, right }: { label: string; right?: string }) {
+  return (
+    <div className="flex items-baseline justify-between mb-10 md:mb-14">
+      <h2 className="text-xs uppercase tracking-[0.24em] opacity-60">({label})</h2>
+      {right ? <span className="text-xs uppercase tracking-[0.24em] opacity-40">{right}</span> : null}
+    </div>
+  );
+}
+
+const experience = [
+  {
+    role: "Full-Stack Developer",
+    company: "Cooperative Tech Labs",
+    period: "2024 — Present",
+    place: "Kathmandu · Remote",
+    points: [
+      "Designed and shipped the EarnVault microfinance platform end to end (NestJS + Next.js + PWA).",
+      "Cut ledger query times ~70% with composite indexes and materialised monthly balances.",
+      "Built the cron-driven interest engine and Socket.IO real-time layer serving live passbooks.",
+    ],
+    stack: ["NestJS", "PostgreSQL", "Prisma", "Next.js"],
+  },
+  {
+    role: "Backend Engineer",
+    company: "Northline Systems",
+    period: "2023 — 2024",
+    place: "Remote",
+    points: [
+      "Owned a REST + webhook integration layer used by 20+ partner services.",
+      "Introduced typed API contracts and contract tests, dropping integration bugs sharply.",
+    ],
+    stack: ["Node.js", "TypeScript", "Redis", "Docker"],
+  },
+  {
+    role: "Software Engineering Intern",
+    company: "Bitframe",
+    period: "2022 — 2023",
+    place: "Kathmandu",
+    points: [
+      "Built internal admin tooling in React and automated release checks in CI.",
+    ],
+    stack: ["React", "Express", "GitHub Actions"],
+  },
+];
+
+function Experience() {
+  return (
+    <section id="experience" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
+      <SectionHead label="Experience" right="2022 —" />
+      <div className="divide-y divide-current/15 border-y border-current/15">
+        {experience.map((e) => (
+          <article key={e.company} className="py-8 md:py-10 grid md:grid-cols-12 gap-4 md:gap-10">
+            <div className="md:col-span-3 font-mono text-xs uppercase tracking-[0.18em] opacity-50">
+              <div>{e.period}</div>
+              <div className="mt-1 opacity-70">{e.place}</div>
+            </div>
+            <div className="md:col-span-9">
+              <h3 className="font-display text-2xl md:text-4xl tracking-[-0.02em]">{e.role}</h3>
+              <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.company}</div>
+              <ul className="mt-5 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
+                {e.points.map((pt) => (
+                  <li key={pt} className="flex gap-3">
+                    <span className="opacity-40 font-mono text-xs pt-1">→</span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {e.stack.map((s) => (
+                  <span
+                    key={s}
+                    className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const education = [
+  {
+    school: "Tribhuvan University",
+    degree: "B.Sc. Computer Science & Information Technology",
+    period: "2019 — 2023",
+    note: "Thesis on distributed ledgers for community savings groups. Graduated with distinction.",
+  },
+  {
+    school: "Open Course Work",
+    degree: "Systems Design & Databases",
+    period: "2023 — 2024",
+    note: "Self-directed study: query planning, indexing strategy, and event-driven architecture.",
+  },
+];
+
+function Education() {
+  return (
+    <section id="education" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
+      <SectionHead label="Education" />
+      <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+        {education.map((e) => (
+          <div
+            key={e.school}
+            className="rounded-2xl p-6 md:p-8 ring-1 ring-current/15 hover:ring-current/35 transition-colors"
+          >
+            <div className="font-mono text-xs uppercase tracking-[0.18em] opacity-50">{e.period}</div>
+            <h3 className="mt-4 font-display text-2xl md:text-3xl tracking-[-0.02em]">{e.school}</h3>
+            <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.degree}</div>
+            <p className="mt-4 text-sm leading-relaxed opacity-75">{e.note}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const skills = [
+  { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "SQL"] },
+  { group: "Backend", items: ["NestJS", "Node.js", "Express", "Prisma", "REST", "WebSockets"] },
+  { group: "Frontend", items: ["React", "Next.js", "React Native", "Tailwind CSS"] },
+  { group: "Data & Infra", items: ["PostgreSQL", "Redis", "Docker", "GitHub Actions", "AWS"] },
+];
+
+function Skills() {
+  return (
+    <section id="skills" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
+      <SectionHead label="Skills" />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 border-t border-current/15 pt-10">
+        {skills.map((s) => (
+          <div key={s.group}>
+            <h3 className="text-[11px] uppercase tracking-[0.22em] opacity-50">{s.group}</h3>
+            <ul className="mt-4 space-y-2">
+              {s.items.map((i) => (
+                <li key={i} className="font-display text-lg md:text-xl tracking-[-0.01em] opacity-85">
+                  {i}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Work() {
   return (
     <section id="work" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
-      <div className="flex items-baseline justify-between mb-10 md:mb-14">
-        <h2 className="text-xs uppercase tracking-[0.24em] opacity-60">(Selected Projects)</h2>
-        <span className="text-xs uppercase tracking-[0.24em] opacity-40">2025 —</span>
-      </div>
+      <SectionHead label="Selected Projects" right="2025 —" />
       <div className="divide-y divide-current/15 border-y border-current/15">
         {projects.map((p) => (
           <ProjectEntry key={p.n} p={p} />
@@ -208,11 +355,11 @@ function Work() {
 function ProjectEntry({ p }: { p: Project }) {
   const { ref, y } = useParallax(0.08);
   return (
-    <article ref={ref} className="py-10 md:py-14 grid md:grid-cols-12 gap-8 md:gap-10">
-      <div className="md:col-span-7">
+    <article ref={ref} className="py-10 md:py-14 grid md:grid-cols-12 gap-8 md:gap-10 items-center">
+      <div className="md:col-span-5">
         <Terminal p={p} y={y} />
       </div>
-      <div className="md:col-span-5 flex flex-col justify-center">
+      <div className="md:col-span-7 flex flex-col justify-center">
         <div className="flex items-baseline gap-3">
           <span className="font-mono text-xs opacity-40">{p.n}</span>
           <h3 className="font-display text-3xl md:text-5xl tracking-[-0.02em]">{p.title}</h3>
@@ -231,6 +378,19 @@ function ProjectEntry({ p }: { p: Project }) {
             </span>
           ))}
         </div>
+        {p.href ? (
+          <div className="mt-7">
+            <a
+              href={p.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 h-11 px-5 rounded-full text-[11px] font-semibold uppercase tracking-[0.18em] ring-1 ring-current/30 hover:bg-current/10 transition-colors"
+            >
+              Live demo
+              <span className="transition-transform group-hover:translate-x-0.5" aria-hidden>↗</span>
+            </a>
+          </div>
+        ) : null}
       </div>
     </article>
   );
