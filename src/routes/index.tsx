@@ -25,7 +25,7 @@ type Project = {
   stack: string[];
   href?: string;
   gradient: string;
-  terminal: { cmd: string; out: string };
+  terminal: { cmd: string; out: string; lines: string[] };
 };
 
 const projects: Project[] = [
@@ -40,9 +40,19 @@ const projects: Project[] = [
     stack: ["NestJS", "Next.js", "React", "PostgreSQL", "Prisma", "Socket.IO", "Mapbox"],
     href: "#",
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
-    terminal: { cmd: "$ pnpm nest start", out: "▸ EarnVault API ready · :3000 · cron: interest@0 0 1 * *" },
+    terminal: {
+      cmd: "pnpm nest start",
+      out: "EarnVault API ready · :3000",
+      lines: [
+        "[Nest] LOG  Mapped {/members/:id/passbook, GET}",
+        "[Cron] LOG  interest.accrual scheduled · 0 0 1 * *",
+        "[WS]   LOG  Socket.IO gateway listening · /ledger",
+        "[DB]   LOG  prisma connected · postgres@earnvault",
+      ],
+    },
   },
 ];
+
 
 type View = "grid" | "list";
 
