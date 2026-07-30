@@ -53,12 +53,8 @@ const projects: Project[] = [
   },
 ];
 
-
-type View = "grid" | "list";
-
 function Portfolio() {
   const [dark, setDark] = useState(true);
-  const [view, setView] = useState<View>("grid");
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", !dark);
@@ -70,25 +66,15 @@ function Portfolio() {
         dark ? "bg-[#0b0b0d] text-white" : "bg-[#f4f2ee] text-[#0b0b0d]"
       } transition-colors duration-500 overflow-x-hidden`}
     >
-      <TopBar dark={dark} setDark={setDark} view={view} setView={setView} />
+      <TopBar dark={dark} setDark={setDark} />
       <Hero />
-      <Work view={view} />
+      <Work />
       <Footer />
     </main>
   );
 }
 
-function TopBar({
-  dark,
-  setDark,
-  view,
-  setView,
-}: {
-  dark: boolean;
-  setDark: (v: boolean) => void;
-  view: View;
-  setView: (v: View) => void;
-}) {
+function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => void }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md">
       <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-6">
@@ -97,41 +83,31 @@ function TopBar({
           <a href="#contact" className="opacity-70 hover:opacity-100 transition-opacity">Contact</a>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <div
-            className={`inline-flex items-center rounded-full p-1 ${
-              dark ? "ring-1 ring-white/15" : "ring-1 ring-black/15"
+        <div
+          className={`inline-flex items-center rounded-full p-1 ${
+            dark ? "ring-1 ring-white/15" : "ring-1 ring-black/15"
+          }`}
+          role="group"
+          aria-label="Theme"
+        >
+          <button
+            onClick={() => setDark(true)}
+            aria-pressed={dark}
+            className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
+              dark ? "bg-white text-black" : "opacity-60 hover:opacity-100"
             }`}
-            role="tablist"
-            aria-label="View"
           >
-            <button
-              onClick={() => setView("grid")}
-              aria-pressed={view === "grid"}
-              className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
-                view === "grid"
-                  ? dark
-                    ? "bg-white text-black"
-                    : "bg-black text-white"
-                  : "opacity-60 hover:opacity-100"
-              }`}
-            >
-              <GridIcon /> Grid
-            </button>
-            <button
-              onClick={() => setView("list")}
-              aria-pressed={view === "list"}
-              className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
-                view === "list"
-                  ? dark
-                    ? "bg-white text-black"
-                    : "bg-black text-white"
-                  : "opacity-60 hover:opacity-100"
-              }`}
-            >
-              <ListIcon /> List
-            </button>
-          </div>
+            <MoonIcon /> Dark
+          </button>
+          <button
+            onClick={() => setDark(false)}
+            aria-pressed={!dark}
+            className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
+              !dark ? "bg-black text-white" : "opacity-60 hover:opacity-100"
+            }`}
+          >
+            <SunIcon /> Light
+          </button>
         </div>
 
         <div className="flex items-center gap-4 md:gap-6 text-[13px] tracking-[0.14em] uppercase">
@@ -157,20 +133,12 @@ function TopBar({
           >
             Email
           </a>
-          <button
-            aria-label="Toggle theme"
-            onClick={() => setDark(!dark)}
-            className={`h-9 w-9 rounded-full grid place-items-center ${
-              dark ? "ring-1 ring-white/20 hover:bg-white/10" : "ring-1 ring-black/20 hover:bg-black/5"
-            } transition-colors`}
-          >
-            {dark ? <SunIcon /> : <MoonIcon />}
-          </button>
         </div>
       </div>
     </header>
   );
 }
+
 
 function Hero() {
   return (
