@@ -147,7 +147,7 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
 
 function Hero() {
   return (
-    <section className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-32">
+    <section id="top" className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-32">
       <div className="text-[11px] tracking-[0.28em] uppercase opacity-60 mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
         <span className="font-semibold opacity-100">Deepanjali Nagarkoti</span>
         <span aria-hidden className="opacity-40">/</span>
