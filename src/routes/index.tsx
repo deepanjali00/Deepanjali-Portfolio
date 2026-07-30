@@ -459,7 +459,7 @@ function Terminal({ p, y }: { p: Project; y: number }) {
         </span>
       </div>
 
-      <div className="relative h-[220px] md:h-[260px] overflow-hidden">
+      <div className="relative h-[340px] md:h-[420px] overflow-hidden">
         {phase === "boot" ? (
           <div
             key={`boot-${bootMs}`}
