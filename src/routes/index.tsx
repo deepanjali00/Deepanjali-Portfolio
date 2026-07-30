@@ -231,7 +231,51 @@ function ProjectEntry({ p }: { p: Project }) {
   );
 }
 
+const previews = [
+  {
+    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    label: "admin dashboard — member ledger",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    label: "interest accrual analytics",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
+    label: "loan disbursement flow",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+    label: "member PWA — passbook",
+  },
+];
+
+const SLIDE_MS = 3200;
+
 function Terminal({ p, y }: { p: Project; y: number }) {
+  const [phase, setPhase] = useState<"boot" | "preview">("boot");
+  const [slide, setSlide] = useState(0);
+
+  const bootMs = 300 + (p.terminal.lines.length + 1) * 350 + 1400;
+
+  useEffect(() => {
+    if (phase !== "boot") return;
+    const t = setTimeout(() => {
+      setSlide(0);
+      setPhase("preview");
+    }, bootMs);
+    return () => clearTimeout(t);
+  }, [phase, bootMs]);
+
+  useEffect(() => {
+    if (phase !== "preview") return;
+    const t = setTimeout(() => {
+      if (slide < previews.length - 1) setSlide((s) => s + 1);
+      else setPhase("boot");
+    }, SLIDE_MS);
+    return () => clearTimeout(t);
+  }, [phase, slide]);
+
   return (
     <div className="relative rounded-xl overflow-hidden ring-1 ring-white/15 shadow-2xl bg-[#0d1117]">
       <div
@@ -244,43 +288,104 @@ function Terminal({ p, y }: { p: Project; y: number }) {
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
         <span className="mx-auto font-mono text-[11px] text-white/50">
-          {p.title.toLowerCase()} — zsh — 80×24
+          {phase === "boot"
+            ? `${p.title.toLowerCase()} — zsh — 80×24`
+            : `localhost:3000 — ${p.title.toLowerCase()}`}
         </span>
       </div>
-      <div className="relative p-4 font-mono text-[11.5px] leading-[1.7] h-[220px] md:h-[260px] overflow-hidden">
-        <div className="text-white/60">
-          <span className="text-emerald-400">deepanjali@dev</span>
-          <span className="text-white/30">:</span>
-          <span className="text-cyan-400">~/{p.title.toLowerCase()}</span>
-          <span className="text-white/30">$ </span>
-          <span className="text-white/90">{p.terminal.cmd}</span>
-        </div>
-        {p.terminal.lines.map((l, i) => (
+
+      <div className="relative h-[220px] md:h-[260px] overflow-hidden">
+        {phase === "boot" ? (
           <div
-            key={l}
-            className="text-emerald-300/80 animate-fade-up"
-            style={{ animationDelay: `${0.3 + i * 0.35}s` }}
+            key={`boot-${bootMs}`}
+            className="p-4 font-mono text-[11.5px] leading-[1.7] animate-fade-up"
           >
-            {l}
+            <div className="text-white/60">
+              <span className="text-emerald-400">deepanjali@dev</span>
+              <span className="text-white/30">:</span>
+              <span className="text-cyan-400">~/{p.title.toLowerCase()}</span>
+              <span className="text-white/30">$ </span>
+              <span className="text-white/90">{p.terminal.cmd}</span>
+            </div>
+            {p.terminal.lines.map((l, i) => (
+              <div
+                key={l}
+                className="text-emerald-300/80 animate-fade-up"
+                style={{ animationDelay: `${0.3 + i * 0.35}s` }}
+              >
+                {l}
+              </div>
+            ))}
+            <div
+              className="text-white/90 animate-fade-up"
+              style={{ animationDelay: `${0.3 + p.terminal.lines.length * 0.35}s` }}
+            >
+              ✔ {p.terminal.out}
+            </div>
+            <div
+              className="text-white/50 animate-fade-up"
+              style={{ animationDelay: `${0.5 + p.terminal.lines.length * 0.35}s` }}
+            >
+              → opening preview…
+            </div>
+            <div className="mt-1 text-white/60">
+              <span className="text-emerald-400">deepanjali@dev</span>
+              <span className="text-white/30">:</span>
+              <span className="text-cyan-400">~/{p.title.toLowerCase()}</span>
+              <span className="text-white/30">$ </span>
+              <span className="inline-block w-[7px] h-[14px] align-middle bg-emerald-400 animate-caret" />
+            </div>
           </div>
-        ))}
-        <div
-          className="text-white/90 animate-fade-up"
-          style={{ animationDelay: `${0.3 + p.terminal.lines.length * 0.35}s` }}
-        >
-          ✔ {p.terminal.out}
-        </div>
-        <div className="mt-1 text-white/60">
-          <span className="text-emerald-400">deepanjali@dev</span>
-          <span className="text-white/30">:</span>
-          <span className="text-cyan-400">~/{p.title.toLowerCase()}</span>
-          <span className="text-white/30">$ </span>
-          <span className="inline-block w-[7px] h-[14px] align-middle bg-emerald-400 animate-caret" />
-        </div>
+        ) : (
+          <div className="absolute inset-0 animate-boot-in">
+            {previews.map((pv, i) => (
+              <img
+                key={pv.src}
+                src={pv.src}
+                alt={`${p.title} preview — ${pv.label}`}
+                loading="lazy"
+                className={`absolute inset-0 h-full w-full object-cover transition-all duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  i === slide
+                    ? "opacity-100 blur-0 animate-ken-burns"
+                    : i < slide
+                      ? "opacity-0 blur-md scale-105 -translate-x-6"
+                      : "opacity-0 blur-md scale-105 translate-x-6"
+                }`}
+              />
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
+            <div className="pointer-events-none absolute inset-0 opacity-30 bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.06)_0px,rgba(255,255,255,0.06)_1px,transparent_1px,transparent_3px)]" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-emerald-300/25 to-transparent animate-scan" />
+
+            <div className="absolute bottom-3 left-4 right-4 flex items-center gap-3">
+              <span
+                key={slide}
+                className="font-mono text-[11px] text-emerald-300 animate-fade-up"
+              >
+                {pv_label(slide)}
+              </span>
+              <div className="ml-auto flex gap-1.5">
+                {previews.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`h-1 rounded-full transition-all duration-500 ${
+                      i === slide ? "w-6 bg-emerald-400" : "w-2 bg-white/25"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
+
+function pv_label(i: number) {
+  return previews[i]?.label ?? "";
+}
+
 
 
 function Footer() {
