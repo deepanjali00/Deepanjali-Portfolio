@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -38,7 +38,7 @@ const projects: Project[] = [
     description:
       "Full-stack microfinance platform for cooperatives: KYC and passbook onboarding, daily interest accrual credited monthly via cron, real-time updates over Socket.IO, and flexible loan disbursement with multiple repayment schedules. Monorepo with a NestJS API, Next.js admin dashboard, and a React Native PWA for members — built for emerging markets and slow networks, with i18n and expense tracking in progress.",
     stack: ["NestJS", "Next.js", "React", "PostgreSQL", "Prisma", "Socket.IO", "Mapbox"],
-    href: "#",
+    href: "https://earnvault.app",
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     terminal: {
       cmd: "pnpm nest start",
@@ -68,6 +68,9 @@ function Portfolio() {
     >
       <TopBar dark={dark} setDark={setDark} />
       <Hero />
+      <Experience />
+      <Education />
+      <Skills />
       <Work />
       <Footer />
     </main>
@@ -75,63 +78,64 @@ function Portfolio() {
 }
 
 function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => void }) {
+  const links = [
+    { label: "Experience", href: "#experience" },
+    { label: "Education", href: "#education" },
+    { label: "Skills", href: "#skills" },
+    { label: "Work", href: "#work" },
+  ];
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md">
-      <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-6">
-        <nav className="flex items-center gap-8 text-[13px] tracking-[0.14em] uppercase">
-          <a href="#work" className="opacity-70 hover:opacity-100 transition-opacity">Work</a>
-          <a href="#contact" className="opacity-70 hover:opacity-100 transition-opacity">Contact</a>
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-5">
+        <a
+          href="#top"
+          className={`font-display text-sm font-black tracking-[-0.02em] h-9 w-9 grid place-items-center rounded-full ${
+            dark ? "bg-white text-black" : "bg-black text-white"
+          }`}
+          aria-label="Home"
+        >
+          DN
+        </a>
+
+        <nav
+          className={`hidden md:flex items-center gap-1 rounded-full px-2 py-1 text-[12px] tracking-[0.12em] uppercase ${
+            dark ? "ring-1 ring-white/12 bg-white/5" : "ring-1 ring-black/10 bg-black/5"
+          }`}
+        >
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="px-3 py-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity"
+            >
+              {l.label}
+            </a>
+          ))}
+          <RouterLink
+            to="/blog"
+            className="px-3 py-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity"
+          >
+            Blog
+          </RouterLink>
         </nav>
 
-        <div
-          className={`inline-flex items-center rounded-full p-1 ${
-            dark ? "ring-1 ring-white/15" : "ring-1 ring-black/15"
-          }`}
-          role="group"
-          aria-label="Theme"
-        >
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setDark(true)}
-            aria-pressed={dark}
-            className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
-              dark ? "bg-white text-black" : "opacity-60 hover:opacity-100"
+            onClick={() => setDark(!dark)}
+            aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+            className={`h-9 w-9 grid place-items-center rounded-full transition-colors ${
+              dark ? "ring-1 ring-white/15 hover:bg-white/10" : "ring-1 ring-black/15 hover:bg-black/5"
             }`}
           >
-            <MoonIcon /> Dark
+            {dark ? <MoonIcon /> : <SunIcon />}
           </button>
-          <button
-            onClick={() => setDark(false)}
-            aria-pressed={!dark}
-            className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
-              !dark ? "bg-black text-white" : "opacity-60 hover:opacity-100"
+          <a
+            href="#contact"
+            className={`h-9 px-4 inline-flex items-center rounded-full text-[11px] tracking-[0.16em] uppercase font-semibold transition-opacity hover:opacity-80 ${
+              dark ? "bg-white text-black" : "bg-black text-white"
             }`}
           >
-            <SunIcon /> Light
-          </button>
-        </div>
-
-        <div className="flex items-center gap-4 md:gap-6 text-[13px] tracking-[0.14em] uppercase">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity"
-          >
-            <GitHubIcon /> GitHub
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity"
-          >
-            <LinkedInIcon /> LinkedIn
-          </a>
-          <a
-            href="mailto:hello@deepanjali.dev"
-            className="font-semibold hover:opacity-70 transition-opacity"
-          >
-            Email
+            Get in touch
           </a>
         </div>
       </div>
@@ -140,9 +144,10 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
 }
 
 
+
 function Hero() {
   return (
-    <section className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-32">
+    <section id="top" className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-32">
       <div className="text-[11px] tracking-[0.28em] uppercase opacity-60 mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
         <span className="font-semibold opacity-100">Deepanjali Nagarkoti</span>
         <span aria-hidden className="opacity-40">/</span>
@@ -184,13 +189,160 @@ function useParallax(speed = 0.15) {
   return { ref, y };
 }
 
+function SectionHead({ label, right }: { label: string; right?: string }) {
+  return (
+    <div className="flex items-baseline justify-between mb-10 md:mb-14">
+      <h2 className="text-xs uppercase tracking-[0.24em] opacity-60">({label})</h2>
+      {right ? <span className="text-xs uppercase tracking-[0.24em] opacity-40">{right}</span> : null}
+    </div>
+  );
+}
+
+const experience = [
+  {
+    role: "Full-Stack Developer",
+    company: "Cooperative Tech Labs",
+    period: "2024 — Present",
+    place: "Kathmandu · Remote",
+    points: [
+      "Designed and shipped the EarnVault microfinance platform end to end (NestJS + Next.js + PWA).",
+      "Cut ledger query times ~70% with composite indexes and materialised monthly balances.",
+      "Built the cron-driven interest engine and Socket.IO real-time layer serving live passbooks.",
+    ],
+    stack: ["NestJS", "PostgreSQL", "Prisma", "Next.js"],
+  },
+  {
+    role: "Backend Engineer",
+    company: "Northline Systems",
+    period: "2023 — 2024",
+    place: "Remote",
+    points: [
+      "Owned a REST + webhook integration layer used by 20+ partner services.",
+      "Introduced typed API contracts and contract tests, dropping integration bugs sharply.",
+    ],
+    stack: ["Node.js", "TypeScript", "Redis", "Docker"],
+  },
+  {
+    role: "Software Engineering Intern",
+    company: "Bitframe",
+    period: "2022 — 2023",
+    place: "Kathmandu",
+    points: [
+      "Built internal admin tooling in React and automated release checks in CI.",
+    ],
+    stack: ["React", "Express", "GitHub Actions"],
+  },
+];
+
+function Experience() {
+  return (
+    <section id="experience" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
+      <SectionHead label="Experience" right="2022 —" />
+      <div className="divide-y divide-current/15 border-y border-current/15">
+        {experience.map((e) => (
+          <article key={e.company} className="py-8 md:py-10 grid md:grid-cols-12 gap-4 md:gap-10">
+            <div className="md:col-span-3 font-mono text-xs uppercase tracking-[0.18em] opacity-50">
+              <div>{e.period}</div>
+              <div className="mt-1 opacity-70">{e.place}</div>
+            </div>
+            <div className="md:col-span-9">
+              <h3 className="font-display text-2xl md:text-4xl tracking-[-0.02em]">{e.role}</h3>
+              <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.company}</div>
+              <ul className="mt-5 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
+                {e.points.map((pt) => (
+                  <li key={pt} className="flex gap-3">
+                    <span className="opacity-40 font-mono text-xs pt-1">→</span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {e.stack.map((s) => (
+                  <span
+                    key={s}
+                    className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const education = [
+  {
+    school: "Tribhuvan University",
+    degree: "B.Sc. Computer Science & Information Technology",
+    period: "2019 — 2023",
+    note: "Thesis on distributed ledgers for community savings groups. Graduated with distinction.",
+  },
+  {
+    school: "Open Course Work",
+    degree: "Systems Design & Databases",
+    period: "2023 — 2024",
+    note: "Self-directed study: query planning, indexing strategy, and event-driven architecture.",
+  },
+];
+
+function Education() {
+  return (
+    <section id="education" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
+      <SectionHead label="Education" />
+      <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+        {education.map((e) => (
+          <div
+            key={e.school}
+            className="rounded-2xl p-6 md:p-8 ring-1 ring-current/15 hover:ring-current/35 transition-colors"
+          >
+            <div className="font-mono text-xs uppercase tracking-[0.18em] opacity-50">{e.period}</div>
+            <h3 className="mt-4 font-display text-2xl md:text-3xl tracking-[-0.02em]">{e.school}</h3>
+            <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.degree}</div>
+            <p className="mt-4 text-sm leading-relaxed opacity-75">{e.note}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const skills = [
+  { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "SQL"] },
+  { group: "Backend", items: ["NestJS", "Node.js", "Express", "Prisma", "REST", "WebSockets"] },
+  { group: "Frontend", items: ["React", "Next.js", "React Native", "Tailwind CSS"] },
+  { group: "Data & Infra", items: ["PostgreSQL", "Redis", "Docker", "GitHub Actions", "AWS"] },
+];
+
+function Skills() {
+  return (
+    <section id="skills" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
+      <SectionHead label="Skills" />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 border-t border-current/15 pt-10">
+        {skills.map((s) => (
+          <div key={s.group}>
+            <h3 className="text-[11px] uppercase tracking-[0.22em] opacity-50">{s.group}</h3>
+            <ul className="mt-4 space-y-2">
+              {s.items.map((i) => (
+                <li key={i} className="font-display text-lg md:text-xl tracking-[-0.01em] opacity-85">
+                  {i}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Work() {
   return (
     <section id="work" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
-      <div className="flex items-baseline justify-between mb-10 md:mb-14">
-        <h2 className="text-xs uppercase tracking-[0.24em] opacity-60">(Selected Projects)</h2>
-        <span className="text-xs uppercase tracking-[0.24em] opacity-40">2025 —</span>
-      </div>
+      <SectionHead label="Selected Projects" right="2025 —" />
       <div className="divide-y divide-current/15 border-y border-current/15">
         {projects.map((p) => (
           <ProjectEntry key={p.n} p={p} />
@@ -203,11 +355,11 @@ function Work() {
 function ProjectEntry({ p }: { p: Project }) {
   const { ref, y } = useParallax(0.08);
   return (
-    <article ref={ref} className="py-10 md:py-14 grid md:grid-cols-12 gap-8 md:gap-10">
-      <div className="md:col-span-7">
+    <article ref={ref} className="py-10 md:py-14 grid md:grid-cols-12 gap-8 md:gap-10 items-center">
+      <div className="md:col-span-5">
         <Terminal p={p} y={y} />
       </div>
-      <div className="md:col-span-5 flex flex-col justify-center">
+      <div className="md:col-span-7 flex flex-col justify-center">
         <div className="flex items-baseline gap-3">
           <span className="font-mono text-xs opacity-40">{p.n}</span>
           <h3 className="font-display text-3xl md:text-5xl tracking-[-0.02em]">{p.title}</h3>
@@ -226,6 +378,19 @@ function ProjectEntry({ p }: { p: Project }) {
             </span>
           ))}
         </div>
+        {p.href ? (
+          <div className="mt-7">
+            <a
+              href={p.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 h-11 px-5 rounded-full text-[11px] font-semibold uppercase tracking-[0.18em] ring-1 ring-current/30 hover:bg-current/10 transition-colors"
+            >
+              Live demo
+              <span className="transition-transform group-hover:translate-x-0.5" aria-hidden>↗</span>
+            </a>
+          </div>
+        ) : null}
       </div>
     </article>
   );
@@ -294,7 +459,7 @@ function Terminal({ p, y }: { p: Project; y: number }) {
         </span>
       </div>
 
-      <div className="relative h-[220px] md:h-[260px] overflow-hidden">
+      <div className="relative h-[340px] md:h-[420px] overflow-hidden">
         {phase === "boot" ? (
           <div
             key={`boot-${bootMs}`}
