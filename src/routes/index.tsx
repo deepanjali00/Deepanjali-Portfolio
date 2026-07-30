@@ -38,7 +38,7 @@ const projects: Project[] = [
     description:
       "Full-stack microfinance platform for cooperatives: KYC and passbook onboarding, daily interest accrual credited monthly via cron, real-time updates over Socket.IO, and flexible loan disbursement with multiple repayment schedules. Monorepo with a NestJS API, Next.js admin dashboard, and a React Native PWA for members — built for emerging markets and slow networks, with i18n and expense tracking in progress.",
     stack: ["NestJS", "Next.js", "React", "PostgreSQL", "Prisma", "Socket.IO", "Mapbox"],
-    href: "#",
+    href: "https://earnvault.app",
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     terminal: {
       cmd: "pnpm nest start",
