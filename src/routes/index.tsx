@@ -285,7 +285,7 @@ function Terminal({ p, y }: { p: Project; y: number }) {
 
 function Footer() {
   return (
-    <footer className="border-t border-current/15">
+    <footer id="contact" className="border-t border-current/15">
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-8 flex flex-wrap justify-between gap-4 text-xs uppercase tracking-[0.2em] opacity-60">
         <span>© 2026 Deepanjali Nagarkoti</span>
         <a href="mailto:hello@deepanjali.dev" className="hover:opacity-100">hello@deepanjali.dev</a>
