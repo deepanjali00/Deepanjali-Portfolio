@@ -184,119 +184,104 @@ function useParallax(speed = 0.15) {
   return { ref, y };
 }
 
-function Work({ view }: { view: View }) {
+function Work() {
   return (
     <section id="work" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
       <div className="flex items-baseline justify-between mb-10 md:mb-14">
         <h2 className="text-xs uppercase tracking-[0.24em] opacity-60">(Selected Projects)</h2>
         <span className="text-xs uppercase tracking-[0.24em] opacity-40">2025 —</span>
       </div>
-      {view === "grid" ? (
-        <div className="grid md:grid-cols-2 gap-6 md:gap-10">
-          {projects.map((p) => (
-            <ProjectCard key={p.n} p={p} />
-          ))}
-        </div>
-      ) : (
-        <ul className="divide-y divide-current/15 border-y border-current/15">
-          {projects.map((p) => (
-            <ProjectRow key={p.n} p={p} />
-          ))}
-        </ul>
-      )}
+      <div className="divide-y divide-current/15 border-y border-current/15">
+        {projects.map((p) => (
+          <ProjectEntry key={p.n} p={p} />
+        ))}
+      </div>
     </section>
   );
 }
 
-function ProjectCard({ p }: { p: Project }) {
-  const { ref, y } = useParallax(0.12);
+function ProjectEntry({ p }: { p: Project }) {
+  const { ref, y } = useParallax(0.08);
   return (
-    <article ref={ref} className="group" id="contact">
-      <a href={p.href ?? "#"} className="block">
-        <div className="relative overflow-hidden rounded-lg aspect-[4/3] bg-black/20">
-          <div
-            className={`absolute -inset-8 bg-gradient-to-br ${p.gradient} animate-slow-pan will-change-transform`}
-            style={{ transform: `translate3d(0, ${y}px, 0)` }}
-          />
-          <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
-          <div className="absolute inset-0 grid grid-rows-6 opacity-30">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="border-t border-white/20 animate-scan"
-                style={{ animationDelay: `${i * 0.4}s` }}
-              />
-            ))}
-          </div>
-          <div className="absolute left-5 top-5 right-5 font-mono text-[11px] text-white/80 leading-relaxed">
-            <div className="opacity-60">{p.terminal.cmd}</div>
-            <div className="opacity-90 animate-type">{p.terminal.out}</div>
-          </div>
-          <div className="absolute left-5 bottom-5 right-5 flex flex-wrap gap-2">
-            {p.stack.map((s) => (
-              <span
-                key={s}
-                className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded bg-white/10 backdrop-blur-sm text-white ring-1 ring-white/15"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
+    <article ref={ref} className="py-10 md:py-14 grid md:grid-cols-12 gap-8 md:gap-10">
+      <div className="md:col-span-7">
+        <Terminal p={p} y={y} />
+      </div>
+      <div className="md:col-span-5 flex flex-col justify-center">
+        <div className="flex items-baseline gap-3">
+          <span className="font-mono text-xs opacity-40">{p.n}</span>
+          <h3 className="font-display text-3xl md:text-5xl tracking-[-0.02em]">{p.title}</h3>
+          <span className="ml-auto text-xs font-mono opacity-50">{p.year}</span>
         </div>
-        <div className="mt-4 flex items-baseline justify-between gap-4">
-          <div>
-            <div className="font-display text-2xl md:text-3xl tracking-[-0.02em] group-hover:opacity-70 transition-opacity">
-              {p.title}
-            </div>
-            <div className="text-xs uppercase tracking-[0.2em] opacity-60 mt-1">{p.tag}</div>
-          </div>
-          <span className="text-xs font-mono opacity-50">{p.year}</span>
+        <div className="mt-2 text-xs uppercase tracking-[0.2em] opacity-60">{p.tag}</div>
+        <p className="mt-5 text-sm md:text-base leading-relaxed opacity-80">{p.description}</p>
+        <div className="mt-4 text-[11px] uppercase tracking-[0.2em] opacity-60">{p.role}</div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {p.stack.map((s) => (
+            <span
+              key={s}
+              className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
+            >
+              {s}
+            </span>
+          ))}
         </div>
-      </a>
+      </div>
     </article>
   );
 }
 
-function ProjectRow({ p }: { p: Project }) {
-  const [open, setOpen] = useState(true);
+function Terminal({ p, y }: { p: Project; y: number }) {
   return (
-    <li className="py-6 md:py-8">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full grid grid-cols-12 gap-4 items-baseline text-left"
-      >
-        <span className="col-span-1 font-mono text-xs opacity-40">{p.n}</span>
-        <span className="col-span-11 md:col-span-6 font-display text-2xl md:text-4xl tracking-[-0.02em]">
-          {p.title}
+    <div className="relative rounded-xl overflow-hidden ring-1 ring-white/15 shadow-2xl bg-[#0d1117]">
+      <div
+        className={`absolute -inset-16 bg-gradient-to-br ${p.gradient} opacity-25 blur-2xl animate-slow-pan will-change-transform`}
+        style={{ transform: `translate3d(0, ${y}px, 0)` }}
+        aria-hidden
+      />
+      <div className="relative flex items-center gap-2 px-4 h-9 bg-white/5 border-b border-white/10">
+        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+        <span className="mx-auto font-mono text-[11px] text-white/50">
+          {p.title.toLowerCase()} — zsh — 80×24
         </span>
-        <span className="hidden md:block md:col-span-4 text-xs uppercase tracking-[0.2em] opacity-60">
-          {p.tag}
-        </span>
-        <span className="hidden md:block md:col-span-1 text-xs font-mono opacity-50 text-right">
-          {p.year}
-        </span>
-      </button>
-      {open && (
-        <div className="mt-5 grid grid-cols-12 gap-4">
-          <div className="col-start-1 md:col-start-2 col-span-12 md:col-span-7">
-            <p className="text-sm md:text-base leading-relaxed opacity-80">{p.description}</p>
-            <div className="mt-4 text-[11px] uppercase tracking-[0.2em] opacity-60">{p.role}</div>
-          </div>
-          <div className="col-start-1 md:col-start-9 col-span-12 md:col-span-4 flex flex-wrap gap-2 md:justify-end content-start">
-            {p.stack.map((s) => (
-              <span
-                key={s}
-                className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
+      </div>
+      <div className="relative p-4 font-mono text-[11.5px] leading-[1.7] h-[220px] md:h-[260px] overflow-hidden">
+        <div className="text-white/60">
+          <span className="text-emerald-400">deepanjali@dev</span>
+          <span className="text-white/30">:</span>
+          <span className="text-cyan-400">~/{p.title.toLowerCase()}</span>
+          <span className="text-white/30">$ </span>
+          <span className="text-white/90">{p.terminal.cmd}</span>
         </div>
-      )}
-    </li>
+        {p.terminal.lines.map((l, i) => (
+          <div
+            key={l}
+            className="text-emerald-300/80 animate-fade-up"
+            style={{ animationDelay: `${0.3 + i * 0.35}s` }}
+          >
+            {l}
+          </div>
+        ))}
+        <div
+          className="text-white/90 animate-fade-up"
+          style={{ animationDelay: `${0.3 + p.terminal.lines.length * 0.35}s` }}
+        >
+          ✔ {p.terminal.out}
+        </div>
+        <div className="mt-1 text-white/60">
+          <span className="text-emerald-400">deepanjali@dev</span>
+          <span className="text-white/30">:</span>
+          <span className="text-cyan-400">~/{p.title.toLowerCase()}</span>
+          <span className="text-white/30">$ </span>
+          <span className="inline-block w-[7px] h-[14px] align-middle bg-emerald-400 animate-caret" />
+        </div>
+      </div>
+    </div>
   );
 }
+
 
 function Footer() {
   return (
