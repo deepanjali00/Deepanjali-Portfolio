@@ -68,6 +68,9 @@ function Portfolio() {
     >
       <TopBar dark={dark} setDark={setDark} />
       <Hero />
+      <Experience />
+      <Education />
+      <Skills />
       <Work />
       <Footer />
     </main>
