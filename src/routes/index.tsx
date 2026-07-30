@@ -75,69 +75,71 @@ function Portfolio() {
 }
 
 function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => void }) {
+  const links = [
+    { label: "Experience", href: "#experience" },
+    { label: "Education", href: "#education" },
+    { label: "Skills", href: "#skills" },
+    { label: "Work", href: "#work" },
+  ];
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md">
-      <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-6">
-        <nav className="flex items-center gap-8 text-[13px] tracking-[0.14em] uppercase">
-          <a href="#work" className="opacity-70 hover:opacity-100 transition-opacity">Work</a>
-          <a href="#contact" className="opacity-70 hover:opacity-100 transition-opacity">Contact</a>
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-5">
+        <a
+          href="#top"
+          className={`font-display text-sm font-black tracking-[-0.02em] h-9 w-9 grid place-items-center rounded-full ${
+            dark ? "bg-white text-black" : "bg-black text-white"
+          }`}
+          aria-label="Home"
+        >
+          DN
+        </a>
+
+        <nav
+          className={`hidden md:flex items-center gap-1 rounded-full px-2 py-1 text-[12px] tracking-[0.12em] uppercase ${
+            dark ? "ring-1 ring-white/12 bg-white/5" : "ring-1 ring-black/10 bg-black/5"
+          }`}
+        >
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="px-3 py-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity"
+            >
+              {l.label}
+            </a>
+          ))}
+          <RouterLink
+            to="/blog"
+            className="px-3 py-1.5 rounded-full opacity-70 hover:opacity-100 transition-opacity"
+          >
+            Blog
+          </RouterLink>
         </nav>
 
-        <div
-          className={`inline-flex items-center rounded-full p-1 ${
-            dark ? "ring-1 ring-white/15" : "ring-1 ring-black/15"
-          }`}
-          role="group"
-          aria-label="Theme"
-        >
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setDark(true)}
-            aria-pressed={dark}
-            className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
-              dark ? "bg-white text-black" : "opacity-60 hover:opacity-100"
+            onClick={() => setDark(!dark)}
+            aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+            className={`h-9 w-9 grid place-items-center rounded-full transition-colors ${
+              dark ? "ring-1 ring-white/15 hover:bg-white/10" : "ring-1 ring-black/15 hover:bg-black/5"
             }`}
           >
-            <MoonIcon /> Dark
+            {dark ? <MoonIcon /> : <SunIcon />}
           </button>
-          <button
-            onClick={() => setDark(false)}
-            aria-pressed={!dark}
-            className={`h-7 px-3 rounded-full flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase transition-colors ${
-              !dark ? "bg-black text-white" : "opacity-60 hover:opacity-100"
+          <a
+            href="#contact"
+            className={`h-9 px-4 inline-flex items-center rounded-full text-[11px] tracking-[0.16em] uppercase font-semibold transition-opacity hover:opacity-80 ${
+              dark ? "bg-white text-black" : "bg-black text-white"
             }`}
           >
-            <SunIcon /> Light
-          </button>
-        </div>
-
-        <div className="flex items-center gap-4 md:gap-6 text-[13px] tracking-[0.14em] uppercase">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity"
-          >
-            <GitHubIcon /> GitHub
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 opacity-70 hover:opacity-100 transition-opacity"
-          >
-            <LinkedInIcon /> LinkedIn
-          </a>
-          <a
-            href="mailto:hello@deepanjali.dev"
-            className="font-semibold hover:opacity-70 transition-opacity"
-          >
-            Email
+            Get in touch
           </a>
         </div>
       </div>
     </header>
   );
 }
+
 
 
 function Hero() {
