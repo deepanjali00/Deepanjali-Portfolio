@@ -270,6 +270,9 @@ const experience = [
     company: "Cooperative Tech Labs",
     period: "2024 — Present",
     place: "Kathmandu · Remote",
+    level: "LVL 04",
+    status: "ACTIVE QUEST",
+    xp: 92,
     points: [
       "Designed and shipped the EarnVault microfinance platform end to end (NestJS + Next.js + PWA).",
       "Cut ledger query times ~70% with composite indexes and materialised monthly balances.",
@@ -282,6 +285,9 @@ const experience = [
     company: "Northline Systems",
     period: "2023 — 2024",
     place: "Remote",
+    level: "LVL 03",
+    status: "CLEARED",
+    xp: 74,
     points: [
       "Owned a REST + webhook integration layer used by 20+ partner services.",
       "Introduced typed API contracts and contract tests, dropping integration bugs sharply.",
@@ -293,46 +299,92 @@ const experience = [
     company: "Bitframe",
     period: "2022 — 2023",
     place: "Kathmandu",
-    points: [
-      "Built internal admin tooling in React and automated release checks in CI.",
-    ],
+    level: "LVL 01",
+    status: "CLEARED",
+    xp: 40,
+    points: ["Built internal admin tooling in React and automated release checks in CI."],
     stack: ["React", "Express", "GitHub Actions"],
   },
 ];
 
+function XpBar({ value }: { value: number }) {
+  const blocks = 20;
+  const filled = Math.round((value / 100) * blocks);
+  return (
+    <div className="flex gap-[3px]" aria-label={`XP ${value}%`}>
+      {Array.from({ length: blocks }).map((_, i) => (
+        <span
+          key={i}
+          className={`h-3 w-[7px] ${i < filled ? "bg-emerald-500" : "bg-current/15"}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 function Experience() {
   return (
     <section id="experience" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
-      <SectionHead label="Experience" right="2022 —" />
-      <div className="divide-y divide-current/15 border-y border-current/15">
-        {experience.map((e) => (
-          <article key={e.company} className="py-8 md:py-10 grid md:grid-cols-12 gap-4 md:gap-10">
-            <div className="md:col-span-3 font-mono text-xs uppercase tracking-[0.18em] opacity-50">
-              <div>{e.period}</div>
-              <div className="mt-1 opacity-70">{e.place}</div>
-            </div>
-            <div className="md:col-span-9">
-              <h3 className="font-display text-2xl md:text-4xl tracking-[-0.02em]">{e.role}</h3>
-              <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.company}</div>
-              <ul className="mt-5 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
-                {e.points.map((pt) => (
-                  <li key={pt} className="flex gap-3">
-                    <span className="opacity-40 font-mono text-xs pt-1">→</span>
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {e.stack.map((s) => (
+      <SectionHead label="Experience — Quest Log" right="2022 —" />
+      <div className="space-y-5">
+        {experience.map((e, idx) => (
+          <article
+            key={e.company}
+            className="group relative ring-1 ring-current/20 hover:ring-emerald-500/60 transition-all p-5 md:p-7 hover:-translate-y-[3px] hover:shadow-[6px_6px_0_0_currentColor]"
+          >
+            <div className="absolute inset-0 pixel-grid opacity-[0.05] pointer-events-none" aria-hidden />
+            <div className="relative grid md:grid-cols-12 gap-6 md:gap-10">
+              <div className="md:col-span-4 space-y-4">
+                <div className="flex items-center gap-3 font-pixel text-[9px]">
+                  <span className="px-2 py-1.5 bg-emerald-500 text-black">{e.level}</span>
                   <span
-                    key={s}
-                    className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
+                    className={
+                      e.status === "ACTIVE QUEST"
+                        ? "text-emerald-500 animate-pixel-blink"
+                        : "opacity-45"
+                    }
                   >
-                    {s}
+                    {e.status}
                   </span>
-                ))}
+                </div>
+                <div className="font-mono text-xs uppercase tracking-[0.18em] opacity-55">
+                  <div>{e.period}</div>
+                  <div className="mt-1 opacity-70">{e.place}</div>
+                </div>
+                <div className="space-y-2">
+                  <XpBar value={e.xp} />
+                  <div className="font-pixel text-[8px] opacity-45">XP {e.xp}/100</div>
+                </div>
+              </div>
+
+              <div className="md:col-span-8">
+                <h3 className="font-pixel text-sm md:text-lg leading-relaxed">{e.role}</h3>
+                <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] opacity-60">
+                  {e.company}
+                </div>
+                <ul className="mt-5 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
+                  {e.points.map((pt) => (
+                    <li key={pt} className="flex gap-3">
+                      <span className="text-emerald-500 font-pixel text-[8px] pt-1.5">▸</span>
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {e.stack.map((s) => (
+                    <span
+                      key={s}
+                      className="font-pixel text-[8px] px-2 py-1.5 ring-1 ring-current/25 opacity-80"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
+            <span className="absolute -top-2 -left-2 font-pixel text-[9px] px-2 py-1 bg-current text-background">
+              {String(idx + 1).padStart(2, "0")}
+            </span>
           </article>
         ))}
       </div>
