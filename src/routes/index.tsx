@@ -54,7 +54,7 @@ const projects: Project[] = [
 ];
 
 function Portfolio() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", !dark);
@@ -145,21 +145,87 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
 
 
 
-function Hero() {
+const ROTATE = ["APIs", "dashboards", "ledgers", "real-time apps", "tooling"];
+
+function PixelField() {
+  const cells = Array.from({ length: 14 * 40 });
   return (
-    <section id="top" className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-32">
-      <div className="text-[11px] tracking-[0.28em] uppercase opacity-60 mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span className="font-semibold opacity-100">Deepanjali Nagarkoti</span>
-        <span aria-hidden className="opacity-40">/</span>
-        <span>Software Developer</span>
-      </div>
-      <div className="grid md:grid-cols-12 gap-10 items-end">
-        <h1 className="md:col-span-8 font-display font-black leading-[0.92] tracking-[-0.03em] text-[clamp(3.5rem,12vw,13rem)]">
-          Building<br />the web.
-        </h1>
-        <p className="md:col-span-4 text-base md:text-lg leading-relaxed opacity-70 md:pb-6">
-          I'm a software developer focused on shipping fast, reliable web applications — from clean APIs and databases to polished frontends. I care about performance, DX, and code that ages well.
-        </p>
+    <div
+      aria-hidden
+      className="absolute inset-0 grid opacity-70"
+      style={{ gridTemplateColumns: "repeat(40, minmax(0, 1fr))" }}
+    >
+      {cells.map((_, i) => (
+        <div
+          key={i}
+          className="aspect-square bg-transparent transition-colors duration-[900ms] hover:bg-emerald-400/50 hover:duration-0"
+        />
+      ))}
+    </div>
+  );
+}
+
+function Hero() {
+  const [word, setWord] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setWord((w) => (w + 1) % ROTATE.length), 2200);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section id="top" className="max-w-[1600px] mx-auto px-6 md:px-12 pt-6 md:pt-12 pb-20 md:pb-28">
+      <div className="relative overflow-hidden ring-1 ring-current/15 rounded-none">
+        <div className="absolute inset-0 pixel-grid opacity-[0.07]" aria-hidden />
+        <PixelField />
+
+        <div className="relative pointer-events-none p-6 md:p-14">
+          <div className="font-pixel text-[9px] md:text-[10px] flex flex-wrap items-center gap-x-4 gap-y-2 text-emerald-500">
+            <span>PLAYER 01</span>
+            <span className="opacity-40">·</span>
+            <span className="opacity-80">DEEPANJALI NAGARKOTI</span>
+            <span className="opacity-40">·</span>
+            <span className="opacity-60">LVL 04 SOFTWARE DEV</span>
+            <span className="animate-pixel-blink">_</span>
+          </div>
+
+          <h1 className="mt-8 font-pixel pixel-text leading-[1.5] text-[clamp(1.5rem,5.4vw,4.2rem)]">
+            I BUILD
+            <br />
+            <span className="text-emerald-500">{"{"}</span>
+            <span key={word} className="inline-block animate-pixel-pop mx-2">
+              {ROTATE[word]}
+            </span>
+            <span className="text-emerald-500">{"}"}</span>
+          </h1>
+
+          <div className="mt-10 grid md:grid-cols-12 gap-8 items-end">
+            <p className="md:col-span-6 text-sm md:text-base leading-relaxed opacity-70">
+              Full-stack developer shipping fast, reliable web apps — clean APIs, tuned databases,
+              polished frontends. I care about performance, DX, and code that ages well.
+            </p>
+            <div className="md:col-span-6 md:justify-self-end pointer-events-auto flex flex-wrap gap-3">
+              <a
+                href="#work"
+                className="font-pixel text-[10px] px-5 py-4 bg-emerald-500 text-black pixel-shadow text-emerald-900/40 hover:translate-x-[2px] hover:translate-y-[2px] transition-transform"
+              >
+                <span className="text-black">PRESS START ▶</span>
+              </a>
+              <a
+                href="#contact"
+                className="font-pixel text-[10px] px-5 py-4 ring-1 ring-current/30 hover:bg-current/10 transition-colors"
+              >
+                CONTACT
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-10 font-pixel text-[9px] flex flex-wrap gap-x-6 gap-y-2 opacity-50">
+            <span>◆ 3 YRS XP</span>
+            <span>◆ NESTJS · NEXTJS</span>
+            <span>◆ POSTGRES</span>
+            <span>◆ REMOTE / KATHMANDU</span>
+          </div>
+        </div>
       </div>
     </section>
   );
