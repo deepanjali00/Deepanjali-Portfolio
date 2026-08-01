@@ -206,7 +206,7 @@ function Hero() {
             <div className="md:col-span-6 md:justify-self-end pointer-events-auto flex flex-wrap gap-3">
               <a
                 href="#work"
-                className="font-pixel text-[10px] px-5 py-4 bg-emerald-500 text-black pixel-shadow text-emerald-900/40 hover:translate-x-[2px] hover:translate-y-[2px] transition-transform"
+                className="font-pixel text-[10px] px-5 py-4 bg-emerald-500 text-black shadow-[4px_4px_0_0_rgba(0,0,0,0.35)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
               >
                 <span className="text-black">PRESS START ▶</span>
               </a>
@@ -382,7 +382,7 @@ function Experience() {
                 </div>
               </div>
             </div>
-            <span className="absolute -top-2 -left-2 font-pixel text-[9px] px-2 py-1 bg-current text-background">
+            <span className="absolute -top-2 -left-2 font-pixel text-[9px] px-2 py-1 bg-emerald-500 text-black">
               {String(idx + 1).padStart(2, "0")}
             </span>
           </article>
