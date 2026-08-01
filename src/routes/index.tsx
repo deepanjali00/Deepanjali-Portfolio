@@ -84,9 +84,22 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
     { label: "Skills", href: "#skills" },
     { label: "Work", href: "#work" },
   ];
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        scrolled ? "backdrop-blur-md bg-current/[0.04]" : ""
+      }`}
+    >
+
       <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-5">
+
         <a
           href="#top"
           className={`font-display text-sm font-black tracking-[-0.02em] h-9 w-9 grid place-items-center rounded-full ${
@@ -173,12 +186,14 @@ function Hero() {
   }, []);
 
   return (
-    <section id="top" className="max-w-[1600px] mx-auto px-6 md:px-12 pt-6 md:pt-12 pb-20 md:pb-28">
-      <div className="relative overflow-hidden ring-1 ring-current/15 rounded-none">
-        <div className="absolute inset-0 pixel-grid opacity-[0.07]" aria-hidden />
-        <PixelField />
+    <section id="top" className="relative overflow-hidden">
+      <div className="absolute inset-0 pixel-grid opacity-[0.07]" aria-hidden />
+      <PixelField />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-current/[0.04]" aria-hidden />
 
-        <div className="relative pointer-events-none p-6 md:p-14">
+      <div className="relative max-w-[1600px] mx-auto px-6 md:px-12">
+        <div className="relative pointer-events-none pt-28 md:pt-36 pb-20 md:pb-28">
+
           <div className="font-pixel text-[9px] md:text-[10px] flex flex-wrap items-center gap-x-4 gap-y-2 text-emerald-500">
             <span>PLAYER 01</span>
             <span className="opacity-40">·</span>
