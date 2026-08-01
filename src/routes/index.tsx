@@ -85,8 +85,9 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
     { label: "Work", href: "#work" },
   ];
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50">
       <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-5">
+
         <a
           href="#top"
           className={`font-display text-sm font-black tracking-[-0.02em] h-9 w-9 grid place-items-center rounded-full ${
