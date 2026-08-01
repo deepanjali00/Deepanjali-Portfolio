@@ -174,12 +174,14 @@ function Hero() {
   }, []);
 
   return (
-    <section id="top" className="max-w-[1600px] mx-auto px-6 md:px-12 pt-6 md:pt-12 pb-20 md:pb-28">
-      <div className="relative overflow-hidden ring-1 ring-current/15 rounded-none">
-        <div className="absolute inset-0 pixel-grid opacity-[0.07]" aria-hidden />
-        <PixelField />
+    <section id="top" className="relative overflow-hidden">
+      <div className="absolute inset-0 pixel-grid opacity-[0.07]" aria-hidden />
+      <PixelField />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-current/[0.04]" aria-hidden />
 
-        <div className="relative pointer-events-none p-6 md:p-14">
+      <div className="relative max-w-[1600px] mx-auto px-6 md:px-12">
+        <div className="relative pointer-events-none pt-28 md:pt-36 pb-20 md:pb-28">
+
           <div className="font-pixel text-[9px] md:text-[10px] flex flex-wrap items-center gap-x-4 gap-y-2 text-emerald-500">
             <span>PLAYER 01</span>
             <span className="opacity-40">·</span>
