@@ -54,7 +54,7 @@ const projects: Project[] = [
 ];
 
 function Portfolio() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", !dark);
@@ -84,22 +84,9 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
     { label: "Skills", href: "#skills" },
     { label: "Work", href: "#work" },
   ];
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        scrolled ? "backdrop-blur-md bg-current/[0.04]" : ""
-      }`}
-    >
-
+    <header className="sticky top-0 z-50 backdrop-blur-md">
       <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 px-6 md:px-12 py-5">
-
         <a
           href="#top"
           className={`font-display text-sm font-black tracking-[-0.02em] h-9 w-9 grid place-items-center rounded-full ${
@@ -158,89 +145,21 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
 
 
 
-const ROTATE = ["APIs", "dashboards", "ledgers", "real-time apps", "tooling"];
-
-function PixelField() {
-  const cells = Array.from({ length: 14 * 40 });
-  return (
-    <div
-      aria-hidden
-      className="absolute inset-0 grid opacity-70"
-      style={{ gridTemplateColumns: "repeat(40, minmax(0, 1fr))" }}
-    >
-      {cells.map((_, i) => (
-        <div
-          key={i}
-          className="aspect-square bg-transparent transition-colors duration-[900ms] hover:bg-emerald-400/50 hover:duration-0"
-        />
-      ))}
-    </div>
-  );
-}
-
 function Hero() {
-  const [word, setWord] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setWord((w) => (w + 1) % ROTATE.length), 2200);
-    return () => clearInterval(t);
-  }, []);
-
   return (
-    <section id="top" className="relative overflow-hidden">
-      <div className="absolute inset-0 pixel-grid opacity-[0.07]" aria-hidden />
-      <PixelField />
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-current/[0.04]" aria-hidden />
-
-      <div className="relative max-w-[1600px] mx-auto px-6 md:px-12">
-        <div className="relative pointer-events-none pt-28 md:pt-36 pb-20 md:pb-28">
-
-          <div className="font-pixel text-[9px] md:text-[10px] flex flex-wrap items-center gap-x-4 gap-y-2 text-emerald-500">
-            <span>PLAYER 01</span>
-            <span className="opacity-40">·</span>
-            <span className="opacity-80">DEEPANJALI NAGARKOTI</span>
-            <span className="opacity-40">·</span>
-            <span className="opacity-60">LVL 04 SOFTWARE DEV</span>
-            <span className="animate-pixel-blink">_</span>
-          </div>
-
-          <h1 className="mt-8 font-pixel pixel-text leading-[1.5] text-[clamp(1.5rem,5.4vw,4.2rem)]">
-            I BUILD
-            <br />
-            <span className="text-emerald-500">{"{"}</span>
-            <span key={word} className="inline-block animate-pixel-pop mx-2">
-              {ROTATE[word]}
-            </span>
-            <span className="text-emerald-500">{"}"}</span>
-          </h1>
-
-          <div className="mt-10 grid md:grid-cols-12 gap-8 items-end">
-            <p className="md:col-span-6 text-sm md:text-base leading-relaxed opacity-70">
-              Full-stack developer shipping fast, reliable web apps — clean APIs, tuned databases,
-              polished frontends. I care about performance, DX, and code that ages well.
-            </p>
-            <div className="md:col-span-6 md:justify-self-end pointer-events-auto flex flex-wrap gap-3">
-              <a
-                href="#work"
-                className="font-pixel text-[10px] px-5 py-4 bg-emerald-500 text-black shadow-[4px_4px_0_0_rgba(0,0,0,0.35)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
-              >
-                <span className="text-black">PRESS START ▶</span>
-              </a>
-              <a
-                href="#contact"
-                className="font-pixel text-[10px] px-5 py-4 ring-1 ring-current/30 hover:bg-current/10 transition-colors"
-              >
-                CONTACT
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-10 font-pixel text-[9px] flex flex-wrap gap-x-6 gap-y-2 opacity-50">
-            <span>◆ 3 YRS XP</span>
-            <span>◆ NESTJS · NEXTJS</span>
-            <span>◆ POSTGRES</span>
-            <span>◆ REMOTE / KATHMANDU</span>
-          </div>
-        </div>
+    <section id="top" className="max-w-[1600px] mx-auto px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-32">
+      <div className="text-[11px] tracking-[0.28em] uppercase opacity-60 mb-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span className="font-semibold opacity-100">Deepanjali Nagarkoti</span>
+        <span aria-hidden className="opacity-40">/</span>
+        <span>Software Developer</span>
+      </div>
+      <div className="grid md:grid-cols-12 gap-10 items-end">
+        <h1 className="md:col-span-8 font-display font-black leading-[0.92] tracking-[-0.03em] text-[clamp(3.5rem,12vw,13rem)]">
+          Building<br />the web.
+        </h1>
+        <p className="md:col-span-4 text-base md:text-lg leading-relaxed opacity-70 md:pb-6">
+          I'm a software developer focused on shipping fast, reliable web applications — from clean APIs and databases to polished frontends. I care about performance, DX, and code that ages well.
+        </p>
       </div>
     </section>
   );
@@ -285,9 +204,6 @@ const experience = [
     company: "Cooperative Tech Labs",
     period: "2024 — Present",
     place: "Kathmandu · Remote",
-    level: "LVL 04",
-    status: "ACTIVE QUEST",
-    xp: 92,
     points: [
       "Designed and shipped the EarnVault microfinance platform end to end (NestJS + Next.js + PWA).",
       "Cut ledger query times ~70% with composite indexes and materialised monthly balances.",
@@ -300,9 +216,6 @@ const experience = [
     company: "Northline Systems",
     period: "2023 — 2024",
     place: "Remote",
-    level: "LVL 03",
-    status: "CLEARED",
-    xp: 74,
     points: [
       "Owned a REST + webhook integration layer used by 20+ partner services.",
       "Introduced typed API contracts and contract tests, dropping integration bugs sharply.",
@@ -314,92 +227,46 @@ const experience = [
     company: "Bitframe",
     period: "2022 — 2023",
     place: "Kathmandu",
-    level: "LVL 01",
-    status: "CLEARED",
-    xp: 40,
-    points: ["Built internal admin tooling in React and automated release checks in CI."],
+    points: [
+      "Built internal admin tooling in React and automated release checks in CI.",
+    ],
     stack: ["React", "Express", "GitHub Actions"],
   },
 ];
 
-function XpBar({ value }: { value: number }) {
-  const blocks = 20;
-  const filled = Math.round((value / 100) * blocks);
-  return (
-    <div className="flex gap-[3px]" aria-label={`XP ${value}%`}>
-      {Array.from({ length: blocks }).map((_, i) => (
-        <span
-          key={i}
-          className={`h-3 w-[7px] ${i < filled ? "bg-emerald-500" : "bg-current/15"}`}
-        />
-      ))}
-    </div>
-  );
-}
-
 function Experience() {
   return (
     <section id="experience" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
-      <SectionHead label="Experience — Quest Log" right="2022 —" />
-      <div className="space-y-5">
-        {experience.map((e, idx) => (
-          <article
-            key={e.company}
-            className="group relative ring-1 ring-current/20 hover:ring-emerald-500/60 transition-all p-5 md:p-7 hover:-translate-y-[3px] hover:shadow-[6px_6px_0_0_currentColor]"
-          >
-            <div className="absolute inset-0 pixel-grid opacity-[0.05] pointer-events-none" aria-hidden />
-            <div className="relative grid md:grid-cols-12 gap-6 md:gap-10">
-              <div className="md:col-span-4 space-y-4">
-                <div className="flex items-center gap-3 font-pixel text-[9px]">
-                  <span className="px-2 py-1.5 bg-emerald-500 text-black">{e.level}</span>
+      <SectionHead label="Experience" right="2022 —" />
+      <div className="divide-y divide-current/15 border-y border-current/15">
+        {experience.map((e) => (
+          <article key={e.company} className="py-8 md:py-10 grid md:grid-cols-12 gap-4 md:gap-10">
+            <div className="md:col-span-3 font-mono text-xs uppercase tracking-[0.18em] opacity-50">
+              <div>{e.period}</div>
+              <div className="mt-1 opacity-70">{e.place}</div>
+            </div>
+            <div className="md:col-span-9">
+              <h3 className="font-display text-2xl md:text-4xl tracking-[-0.02em]">{e.role}</h3>
+              <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.company}</div>
+              <ul className="mt-5 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
+                {e.points.map((pt) => (
+                  <li key={pt} className="flex gap-3">
+                    <span className="opacity-40 font-mono text-xs pt-1">→</span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {e.stack.map((s) => (
                   <span
-                    className={
-                      e.status === "ACTIVE QUEST"
-                        ? "text-emerald-500 animate-pixel-blink"
-                        : "opacity-45"
-                    }
+                    key={s}
+                    className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
                   >
-                    {e.status}
+                    {s}
                   </span>
-                </div>
-                <div className="font-mono text-xs uppercase tracking-[0.18em] opacity-55">
-                  <div>{e.period}</div>
-                  <div className="mt-1 opacity-70">{e.place}</div>
-                </div>
-                <div className="space-y-2">
-                  <XpBar value={e.xp} />
-                  <div className="font-pixel text-[8px] opacity-45">XP {e.xp}/100</div>
-                </div>
-              </div>
-
-              <div className="md:col-span-8">
-                <h3 className="font-pixel text-sm md:text-lg leading-relaxed">{e.role}</h3>
-                <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] opacity-60">
-                  {e.company}
-                </div>
-                <ul className="mt-5 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
-                  {e.points.map((pt) => (
-                    <li key={pt} className="flex gap-3">
-                      <span className="text-emerald-500 font-pixel text-[8px] pt-1.5">▸</span>
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {e.stack.map((s) => (
-                    <span
-                      key={s}
-                      className="font-pixel text-[8px] px-2 py-1.5 ring-1 ring-current/25 opacity-80"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
+                ))}
               </div>
             </div>
-            <span className="absolute -top-2 -left-2 font-pixel text-[9px] px-2 py-1 bg-emerald-500 text-black">
-              {String(idx + 1).padStart(2, "0")}
-            </span>
           </article>
         ))}
       </div>
