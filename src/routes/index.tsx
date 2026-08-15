@@ -234,58 +234,89 @@ const experience = [
   },
 ];
 
+function TimelineItem({
+  children,
+  last,
+}: {
+  children: React.ReactNode;
+  last?: boolean;
+}) {
+  return (
+    <li className="relative pl-12 md:pl-16 pb-12 last:pb-0">
+      {!last ? (
+        <span
+          aria-hidden
+          className="absolute left-[13px] top-7 bottom-0 w-px bg-current/25"
+        />
+      ) : null}
+      <span
+        aria-hidden
+        className="absolute left-0 top-1.5 h-[27px] w-[27px] rounded-full ring-2 ring-current/70 grid place-items-center"
+      >
+        <span className="h-3 w-3 rounded-full bg-emerald-400" />
+      </span>
+      {children}
+    </li>
+  );
+}
+
 function Experience() {
   return (
     <section id="experience" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
       <SectionHead label="Experience" right="2022 —" />
-      <div className="divide-y divide-current/15 border-y border-current/15">
-        {experience.map((e) => (
-          <article key={e.company} className="py-8 md:py-10 grid md:grid-cols-12 gap-4 md:gap-10">
-            <div className="md:col-span-3 font-mono text-xs uppercase tracking-[0.18em] opacity-50">
-              <div>{e.period}</div>
-              <div className="mt-1 opacity-70">{e.place}</div>
+      <ol className="max-w-4xl">
+        {experience.map((e, i) => (
+          <TimelineItem key={e.company} last={i === experience.length - 1}>
+            <h3 className="font-display text-xl md:text-3xl font-bold tracking-[-0.02em] leading-tight">
+              {e.role}
+            </h3>
+            <div className="mt-1.5 font-mono text-[12px] md:text-sm opacity-55">
+              {e.period} <span className="opacity-40">|</span> {e.company}{" "}
+              <span className="opacity-40">|</span> {e.place}
             </div>
-            <div className="md:col-span-9">
-              <h3 className="font-display text-2xl md:text-4xl tracking-[-0.02em]">{e.role}</h3>
-              <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.company}</div>
-              <ul className="mt-5 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
-                {e.points.map((pt) => (
-                  <li key={pt} className="flex gap-3">
-                    <span className="opacity-40 font-mono text-xs pt-1">→</span>
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {e.stack.map((s) => (
-                  <span
-                    key={s}
-                    className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
+            <ul className="mt-4 space-y-2 text-sm md:text-base leading-relaxed opacity-80">
+              {e.points.map((pt) => (
+                <li key={pt} className="flex gap-3">
+                  <span className="opacity-40 font-mono text-xs pt-1">→</span>
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {e.stack.map((s) => (
+                <span
+                  key={s}
+                  className="text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded ring-1 ring-current/25 opacity-80"
+                >
+                  {s}
+                </span>
+              ))}
             </div>
-          </article>
+          </TimelineItem>
         ))}
-      </div>
+      </ol>
     </section>
   );
 }
 
 const education = [
   {
-    school: "Tribhuvan University",
-    degree: "B.Sc. Computer Science & Information Technology",
-    period: "2019 — 2023",
-    note: "Thesis on distributed ledgers for community savings groups. Graduated with distinction.",
+    school: "Tribhuvan University (TU) | Prime College",
+    degree: "Bachelor of Science in Computer Science and Information Technology (B.Sc. CSIT)",
+    period: "2020 - 2024",
+    note: "Relevant courses included Data Structures and Algorithms, Object Oriented Programming, Web Technology, Numerical Method, Theory of Computation, Artificial Intelligence, Database Management System, Cryptography, System Analysis and Design",
   },
   {
-    school: "Open Course Work",
-    degree: "Systems Design & Databases",
-    period: "2023 — 2024",
-    note: "Self-directed study: query planning, indexing strategy, and event-driven architecture.",
+    school: "National Examination Board (NEB) | Xavier Academy",
+    degree: "Higher Secondary Level - Science",
+    period: "2018 - 2020",
+    note: "Relevant subjects include Mathematics, Physics, Chemistry, Biology",
+  },
+  {
+    school: "National Examination Board (NEB) | Kantipur English High School",
+    degree: "Secondary Level",
+    period: "2018",
+    note: "",
   },
 ];
 
@@ -293,22 +324,25 @@ function Education() {
   return (
     <section id="education" className="max-w-[1600px] mx-auto px-6 md:px-12 pb-24 md:pb-32">
       <SectionHead label="Education" />
-      <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-        {education.map((e) => (
-          <div
-            key={e.school}
-            className="rounded-2xl p-6 md:p-8 ring-1 ring-current/15 hover:ring-current/35 transition-colors"
-          >
-            <div className="font-mono text-xs uppercase tracking-[0.18em] opacity-50">{e.period}</div>
-            <h3 className="mt-4 font-display text-2xl md:text-3xl tracking-[-0.02em]">{e.school}</h3>
-            <div className="mt-1 text-xs uppercase tracking-[0.2em] opacity-60">{e.degree}</div>
-            <p className="mt-4 text-sm leading-relaxed opacity-75">{e.note}</p>
-          </div>
+      <ol className="max-w-4xl">
+        {education.map((e, i) => (
+          <TimelineItem key={e.school} last={i === education.length - 1}>
+            <h3 className="font-display text-xl md:text-3xl font-bold tracking-[-0.02em] leading-tight">
+              {e.degree}
+            </h3>
+            <div className="mt-1.5 font-mono text-[12px] md:text-sm opacity-55">
+              {e.period} <span className="opacity-40">|</span> {e.school}
+            </div>
+            {e.note ? (
+              <p className="mt-3 text-sm md:text-base leading-relaxed opacity-80">{e.note}</p>
+            ) : null}
+          </TimelineItem>
         ))}
-      </div>
+      </ol>
     </section>
   );
 }
+
 
 const skills = [
   { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "SQL"] },
