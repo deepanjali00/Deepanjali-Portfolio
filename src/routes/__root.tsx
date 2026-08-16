@@ -77,17 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Deepanjali Nagarkoti — Designer & Creative Developer" },
+      { title: "Deepanjali Nagarkoti — Software Developer" },
       {
         name: "description",
         content:
-          "Independent portfolio of Deepanjali Nagarkoti — crafting cinematic digital experiences, brand systems, and interactive websites.",
+          "Portfolio of Deepanjali Nagarkoti — software developer building full-stack web platforms, APIs and real-time systems.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Deepanjali Nagarkoti — Designer & Creative Developer" },
+      { property: "og:title", content: "Deepanjali Nagarkoti — Software Developer" },
       {
         property: "og:description",
-        content: "Cinematic digital experiences, brand systems, and interactive websites.",
+        content: "Full-stack web platforms, APIs and real-time systems.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -98,10 +98,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,

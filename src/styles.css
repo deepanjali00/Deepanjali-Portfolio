@@ -2,7 +2,7 @@
 @source "../src";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -28,43 +28,76 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-cream: var(--cream);
-  --color-ember: var(--ember);
+  --color-draft: var(--draft);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.25rem;
 
-  /* Dark editorial palette */
-  --background: oklch(0.14 0.008 60);
-  --foreground: oklch(0.94 0.015 80);
-  --cream: oklch(0.94 0.02 85);
-  --ember: oklch(0.72 0.14 55);
+  /* Blueprint — dark (ink navy) */
+  --background: oklch(0.17 0.032 264);
+  --foreground: oklch(0.95 0.018 258);
+  --paper: oklch(0.23 0.038 262);
+  --ink: oklch(0.95 0.018 258);
+  --draft: oklch(0.82 0.128 218);
 
-  --card: oklch(0.18 0.01 60);
-  --card-foreground: oklch(0.94 0.015 80);
-  --popover: oklch(0.18 0.01 60);
-  --popover-foreground: oklch(0.94 0.015 80);
-  --primary: oklch(0.72 0.14 55);
-  --primary-foreground: oklch(0.14 0.008 60);
-  --secondary: oklch(0.22 0.012 60);
-  --secondary-foreground: oklch(0.94 0.015 80);
-  --muted: oklch(0.22 0.012 60);
-  --muted-foreground: oklch(0.62 0.02 70);
-  --accent: oklch(0.72 0.14 55);
-  --accent-foreground: oklch(0.14 0.008 60);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.28 0.012 60);
-  --input: oklch(0.28 0.012 60);
-  --ring: oklch(0.72 0.14 55);
+  --card: oklch(0.21 0.035 263);
+  --card-foreground: oklch(0.95 0.018 258);
+  --popover: oklch(0.21 0.035 263);
+  --popover-foreground: oklch(0.95 0.018 258);
+  --primary: oklch(0.82 0.128 218);
+  --primary-foreground: oklch(0.17 0.032 264);
+  --secondary: oklch(0.25 0.038 262);
+  --secondary-foreground: oklch(0.95 0.018 258);
+  --muted: oklch(0.25 0.038 262);
+  --muted-foreground: oklch(0.68 0.03 250);
+  --accent: oklch(0.82 0.128 218);
+  --accent-foreground: oklch(0.17 0.032 264);
+  --destructive: oklch(0.6 0.21 22);
+  --destructive-foreground: oklch(0.98 0.003 248);
+  --border: oklch(0.32 0.04 258);
+  --input: oklch(0.32 0.04 258);
+  --ring: oklch(0.82 0.128 218);
 
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --grid-line: oklch(0.82 0.128 218 / 0.09);
+  --grid-line-strong: oklch(0.82 0.128 218 / 0.16);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+.light {
+  /* Blueprint — light (draft paper) */
+  --background: oklch(0.975 0.008 250);
+  --foreground: oklch(0.24 0.045 264);
+  --paper: oklch(1 0 0);
+  --ink: oklch(0.24 0.045 264);
+  --draft: oklch(0.55 0.15 240);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.045 264);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.045 264);
+  --primary: oklch(0.5 0.16 250);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.014 250);
+  --secondary-foreground: oklch(0.24 0.045 264);
+  --muted: oklch(0.94 0.014 250);
+  --muted-foreground: oklch(0.48 0.03 254);
+  --accent: oklch(0.5 0.16 250);
+  --accent-foreground: oklch(0.99 0 0);
+  --border: oklch(0.86 0.02 250);
+  --input: oklch(0.86 0.02 250);
+  --ring: oklch(0.5 0.16 250);
+
+  --grid-line: oklch(0.5 0.16 250 / 0.1);
+  --grid-line-strong: oklch(0.5 0.16 250 / 0.2);
 }
 
 @layer base {
@@ -78,34 +111,53 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
   }
   ::selection {
-    background: var(--ember);
+    background: var(--draft);
     color: var(--background);
   }
 }
 
 @utility font-display {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
-@utility grain {
+/* ---------- blueprint surfaces ---------- */
+
+@utility blueprint-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line-strong) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-strong) 1px, transparent 1px);
+  background-size:
+    28px 28px,
+    28px 28px,
+    140px 140px,
+    140px 140px;
+}
+
+@utility blueprint-fade {
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 20%, transparent 75%);
+}
+
+/* dashed technical frame */
+@utility frame {
   position: relative;
+  border: 1px dashed var(--grid-line-strong);
 }
-@utility grain-overlay {
-  content: "";
+
+@utility tick {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+  width: 9px;
+  height: 9px;
+  border-color: var(--draft);
+  opacity: 0.85;
 }
+
+/* ---------- motion ---------- */
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -116,11 +168,11 @@
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @utility animate-fade-up {
-  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes slow-pan {
@@ -132,20 +184,12 @@
 }
 
 @keyframes scan {
-  0% { transform: translateX(-100%); opacity: 0; }
+  0% { transform: translateY(-100%); opacity: 0; }
   50% { opacity: 1; }
-  100% { transform: translateX(100%); opacity: 0; }
+  100% { transform: translateY(900%); opacity: 0; }
 }
 @utility animate-scan {
-  animation: scan 4s ease-in-out infinite;
-}
-
-@keyframes type {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
-}
-@utility animate-type {
-  animation: type 2.5s steps(30, end) infinite alternate;
+  animation: scan 5s linear infinite;
 }
 
 @keyframes caret {
@@ -173,4 +217,43 @@
   animation: boot-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes dash-drift {
+  to { background-position: 200px 0, 0 -200px, -200px 0, 0 200px; }
+}
+@utility animate-dash-drift {
+  animation: dash-drift 8s linear infinite;
+}
 
+@keyframes sweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+@utility animate-sweep {
+  animation: sweep 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@utility animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 var(--draft); opacity: 0.9; }
+  100% { box-shadow: 0 0 0 12px transparent; opacity: 1; }
+}
+@utility animate-pulse-ring {
+  animation: pulse-ring 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
