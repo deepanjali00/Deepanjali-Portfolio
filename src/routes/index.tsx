@@ -5,19 +5,21 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
   head: () => ({
     meta: [
-      { title: "Deepanjali Nagarkoti — Software Developer" },
+      { title: "Deepanjali Nagarkoti — Software Engineer" },
       {
         name: "description",
         content:
-          "Software developer building full-stack web platforms, clean APIs and real-time systems. Blueprint of my experience, skills and shipped work.",
+          "Software engineer building full-stack web applications, REST APIs and ML-powered tools. Blueprint of my experience, skills and shipped work.",
       },
-      { property: "og:title", content: "Deepanjali Nagarkoti — Software Developer" },
+      { property: "og:title", content: "Deepanjali Nagarkoti — Software Engineer" },
       {
         property: "og:description",
-        content: "Full-stack web platforms, clean APIs and real-time systems.",
+        content: "Full-stack web applications, REST APIs and ML-powered tools.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/og.jpg" },
     ],
   }),
 });
@@ -39,13 +41,32 @@ type Project = {
 const projects: Project[] = [
   {
     n: "01",
+    title: "Tumor Insight",
+    tag: "Brain Tumor Classification System",
+    year: "2024",
+    role: "Full-stack — ML & Web",
+    description:
+      "Web app that classifies brain MRI scans into glioma, meningioma, pituitary or no tumor. VGG-16 and ResNet-50 implemented from scratch in TensorFlow/Keras without pretrained weights, trained on 7,023 MRI images and reaching 93.60% (VGG-16) and 91.31% (ResNet-50) test accuracy. Includes upload validation, three free attempts before login, a daily limit for registered users, a report for each result and nearby-doctor suggestions.",
+    stack: ["Python", "TensorFlow/Keras", "Flask", "React"],
+    terminal: {
+      cmd: "python app.py",
+      out: "Tumor Insight API ready · :5000",
+      lines: [
+        "[Flask] LOG  Mapped {/predict, POST}",
+        "[TF]    LOG  VGG-16 loaded · 93.60% acc",
+        "[DB]    LOG  sqlite connected · tumor_insight",
+      ],
+    },
+  },
+  {
+    n: "02",
     title: "EarnVault",
-    tag: "Cooperative Savings & Loan Platform",
+    tag: "Microfinance & Savings Platform",
     year: "2025",
     role: "Full-stack — Backend & Web Dashboard",
     description:
-      "Full-stack microfinance platform for cooperatives: KYC and passbook onboarding, daily interest accrual credited monthly via cron, real-time updates over Socket.IO, and flexible loan disbursement with multiple repayment schedules. Monorepo with a NestJS API, Next.js admin dashboard, and a React Native PWA for members — built for emerging markets and slow networks, with i18n and expense tracking in progress.",
-    stack: ["NestJS", "Next.js", "React", "PostgreSQL", "Prisma", "Socket.IO", "Mapbox"],
+      "Monorepo (Turborepo) with a responsive PWA, an admin dashboard and a NestJS API. The PWA lets members complete KYC, upload documents, track savings and apply for loans; the admin dashboard handles financial reporting and loan management. Implemented savings, interest accrual, microloans, EMI calculations and transaction tracking, and made monthly interest crediting safe to re-run so no month is credited twice.",
+    stack: ["React", "NestJS", "PostgreSQL", "PWA", "Turborepo"],
     href: "https://earnvault.app",
     terminal: {
       cmd: "pnpm nest start",
@@ -58,75 +79,123 @@ const projects: Project[] = [
       ],
     },
   },
+  {
+    n: "03",
+    title: "Heatwave Forecasting",
+    tag: "Anticipatory Action Dashboard",
+    year: "2025",
+    role: "Full-stack — Frontend & Integration",
+    description:
+      "Leaflet-based forecasting dashboard with real-time DHM weather data, interactive WMS maps and multiple models (DHMWRF, GFS), optimised with React Query caching. Built for anticipatory action, surfacing heatwave risk to responders.",
+    stack: ["React", "Leaflet", "React Query", "TypeScript", "WMS"],
+    terminal: {
+      cmd: "pnpm dev",
+      out: "Heatwave dashboard ready · :5173",
+      lines: [
+        "[Vite] LOG  dev server running · :5173",
+        "[WMS]  LOG  DHM layers loaded · 4 sources",
+        "[RQ]   LOG  cache warmed · forecast models",
+      ],
+    },
+  },
+  {
+    n: "04",
+    title: "Civic Alert Platform",
+    tag: "Citizen Incident Reporting",
+    year: "2025",
+    role: "Full-stack — API & Web",
+    description:
+      "Citizen alert and incident-reporting platform: REST APIs, database models and responsive interfaces, incident management workflows, JWT/OTP login, Mapbox-based maps and multilingual support.",
+    stack: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "Mapbox"],
+    terminal: {
+      cmd: "pnpm nest start",
+      out: "Civic alert API ready · :3000",
+      lines: [
+        "[Nest] LOG  Mapped {/incidents, GET}",
+        "[Auth] LOG  JWT/OTP gateway ready",
+        "[Map]  LOG  Mapbox token loaded",
+      ],
+    },
+  },
 ];
 
 const experience = [
   {
-    role: "Full-Stack Developer",
-    company: "Cooperative Tech Labs",
-    period: "2024 — Present",
-    place: "Kathmandu · Remote",
+    role: "Software Engineer",
+    company: "Rumsan Associates",
+    period: "Jul 2025 — Jun 2026",
+    place: "Lalitpur, Nepal",
     points: [
-      "Designed and shipped the EarnVault microfinance platform end to end (NestJS + Next.js + PWA).",
-      "Cut ledger query times ~70% with composite indexes and materialised monthly balances.",
-      "Built the cron-driven interest engine and Socket.IO real-time layer serving live passbooks.",
+      "Built and maintained full-stack web applications for civic technology, fintech and disaster-response projects, mainly with TypeScript, Next.js, NestJS, Prisma and PostgreSQL.",
+      "On a citizen alert and incident-reporting platform, designed the REST APIs, database models and responsive interfaces, and implemented incident management workflows, JWT/OTP login, Mapbox-based maps and multilingual support.",
+      "Built a Leaflet-based forecasting dashboard with real-time DHM weather data, interactive WMS maps and multiple models (DHMWRF, GFS), optimised with React Query caching.",
+      "Developed reusable UI components and shared SDKs, contributing to debugging, refactoring and deployment.",
     ],
-    stack: ["NestJS", "PostgreSQL", "Prisma", "Next.js"],
+    stack: ["TypeScript", "Next.js", "NestJS", "Prisma", "PostgreSQL", "Mapbox", "React Query"],
   },
   {
-    role: "Backend Engineer",
-    company: "Northline Systems",
-    period: "2023 — 2024",
-    place: "Remote",
+    role: "Software Engineer Trainee",
+    company: "TEJ Center",
+    period: "Feb 2025 — Jun 2025",
+    place: "Lalitpur, Nepal",
     points: [
-      "Owned a REST + webhook integration layer used by 20+ partner services.",
-      "Introduced typed API contracts and contract tests, dropping integration bugs sharply.",
+      "Completed an intensive full-stack traineeship and built applications with JavaScript, React.js, Node.js, REST APIs and databases.",
+      "Built frontend and backend features in an Agile team, using Git and GitHub for version control and collaboration.",
+      "Wrote unit, integration and end-to-end tests with Jest and Cypress to catch bugs and confirm that features worked as expected.",
     ],
-    stack: ["Node.js", "TypeScript", "Redis", "Docker"],
-  },
-  {
-    role: "Software Engineering Intern",
-    company: "Bitframe",
-    period: "2022 — 2023",
-    place: "Kathmandu",
-    points: ["Built internal admin tooling in React and automated release checks in CI."],
-    stack: ["React", "Express", "GitHub Actions"],
+    stack: ["JavaScript", "React", "Node.js", "REST APIs", "Jest", "Cypress"],
   },
 ];
 
 const education = [
   {
-    school: "Tribhuvan University (TU) · Prime College",
+    school: "Prime College (affiliated with Tribhuvan University)",
     degree: "B.Sc. Computer Science & Information Technology",
-    period: "2020 — 2024",
-    note: "Data Structures & Algorithms, OOP, Web Technology, Numerical Method, Theory of Computation, Artificial Intelligence, DBMS, Cryptography, System Analysis & Design.",
-  },
-  {
-    school: "National Examination Board · Xavier Academy",
-    degree: "Higher Secondary Level — Science",
-    period: "2018 — 2020",
-    note: "Mathematics, Physics, Chemistry, Biology.",
-  },
-  {
-    school: "National Examination Board · Kantipur English High School",
-    degree: "Secondary Level",
-    period: "2018",
-    note: "",
+    period: "2021 — 2025",
+    note: "First Division, 75.60% (top 5% of batch). Core coursework: Data Structures and Algorithms, Design and Analysis of Algorithms, Database Systems, Operating Systems, Artificial Intelligence, Software Engineering, Discrete Structures, Calculus and Differential Equations, Linear Algebra, Probability and Statistics, and Numerical Methods.",
   },
 ];
 
 const skills = [
-  { group: "Languages", code: "LNG", items: ["TypeScript", "JavaScript", "Python", "SQL"] },
+  { group: "Languages", code: "LNG", items: ["JavaScript", "TypeScript", "SQL", "Python"] },
   {
-    group: "Backend",
-    code: "SRV",
-    items: ["NestJS", "Node.js", "Express", "Prisma", "REST", "WebSockets"],
+    group: "Web Development",
+    code: "WEB",
+    items: ["React", "Next.js", "Node.js", "NestJS", "Express.js", "HTML", "Tailwind CSS", "REST APIs"],
   },
-  { group: "Frontend", code: "CLI", items: ["React", "Next.js", "React Native", "Tailwind CSS"] },
   {
-    group: "Data & Infra",
-    code: "INF",
-    items: ["PostgreSQL", "Redis", "Docker", "GitHub Actions", "AWS"],
+    group: "Databases & Tools",
+    code: "DB",
+    items: ["PostgreSQL", "Supabase", "Prisma ORM", "MongoDB", "Git", "GitHub", "Docker", "Postman", "Agile/Scrum"],
+  },
+  {
+    group: "ML & Data",
+    code: "ML",
+    items: ["TensorFlow/Keras", "NumPy", "Pandas", "Matplotlib", "CNNs", "scikit-learn", "Model Evaluation"],
+  },
+];
+
+const certifications = [
+  {
+    title: "Full Stack Open",
+    org: "University of Helsinki",
+    date: "Mar 2025",
+    note: "Practical full-stack web development using React, Node.js, REST APIs, databases, and TypeScript.",
+    href: "https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/8eeb3a5c21ed20e936338ee1c66a21f6",
+  },
+  {
+    title: "Advanced Learning Algorithms",
+    org: "DeepLearning.AI",
+    date: "Apr 2024",
+    note: "Neural networks with TensorFlow, model evaluation, and decision tree ensemble methods.",
+    href: "https://coursera.org/share/724eca0a5d7c6759f8acdd33527d6b1c",
+  },
+  {
+    title: "Supervised Machine Learning: Regression and Classification",
+    org: "DeepLearning.AI",
+    date: "Feb 2024",
+    note: "Built supervised machine learning models in Python using NumPy and scikit-learn for regression and binary classification.",
+    href: "https://coursera.org/share/95e74d45077080824bcfb33a095eae4d",
   },
 ];
 
@@ -230,16 +299,19 @@ function Portfolio() {
       <div className="relative z-10">
         <TopBar dark={dark} setDark={setDark} />
         <Hero />
-        <Plate id="experience" code="A-01" label="Experience" meta="2022 —">
+        <Plate id="experience" code="A-01" label="Experience" meta="2025 —">
           <Timeline items={experience.map(expToNode)} />
         </Plate>
-        <Plate id="education" code="A-02" label="Education" meta="2018 — 2024">
+        <Plate id="education" code="A-02" label="Education" meta="2021 — 2025">
           <Timeline items={education.map(eduToNode)} />
         </Plate>
         <Plate id="skills" code="A-03" label="Skills" meta="Toolset">
           <Skills />
         </Plate>
-        <Plate id="work" code="A-04" label="Selected Work" meta="Build log">
+        <Plate id="certifications" code="A-04" label="Certifications" meta="Credentials">
+          <Certifications />
+        </Plate>
+        <Plate id="work" code="A-05" label="Selected Work" meta="Build log">
           <Work />
         </Plate>
         <Contact />
@@ -393,9 +465,10 @@ function Hero() {
             </span>
           </h1>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            I'm <span className="text-foreground">Deepanjali Nagarkoti</span>, a software developer
-            who designs the schema, writes the API and finishes the interface. Currently building
-            fintech infrastructure for cooperatives in emerging markets.
+            I'm <span className="text-foreground">Deepanjali</span>, a full-stack developer who
+            designs the schema, writes the API and ships the interface. I've built
+            disaster-response dashboards, civic alert platforms and cooperative fintech, and I'm
+            now moving into applied ML.
           </p>
         </div>
 
@@ -408,11 +481,12 @@ function Hero() {
             </div>
             <dl className="mt-5 space-y-3 font-mono text-[11px]">
               {[
-                ["Role", "Full-stack developer"],
+                ["Role", "Software Engineer"],
                 ["Base", "Kathmandu, NP · UTC+5:45"],
-                ["Focus", "APIs · Postgres · React"],
-                ["Scale", "Real-time ledgers"],
-                ["Status", "Open to roles"],
+                ["Focus", "Full-stack · ML"],
+                ["Scale", "Web apps & AI"],
+                ["Languages", "Nepali · English (C2)"],
+                ["Status", "Open to roles · relocation"],
               ].map(([k, v]) => (
                 <div key={k} className="flex items-baseline gap-2">
                   <dt className="uppercase tracking-[0.14em] text-muted-foreground">{k}</dt>
@@ -586,6 +660,39 @@ function Skills() {
   );
 }
 
+/* ------------------------------------------------------------------ certifications */
+
+function Certifications() {
+  return (
+    <div className="space-y-4">
+      {certifications.map((c) => (
+        <a
+          key={c.title}
+          href={c.href}
+          target="_blank"
+          rel="noreferrer"
+          className="group block border border-dashed border-primary/25 p-5 transition-colors hover:border-primary hover:bg-primary/5"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h3 className="font-display text-lg font-semibold tracking-tight md:text-xl">
+              {c.title}
+            </h3>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+              {c.org} · {c.date}
+            </span>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+            {c.note}
+          </p>
+          <span className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
+            View certificate ↗
+          </span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------------ work */
 
 function Work() {
@@ -712,7 +819,7 @@ function Terminal({ p, y }: { p: Project; y: number }) {
         </span>
       </div>
 
-      <div className="relative h-[400px] overflow-hidden md:h-[520px]">
+      <div className="relative h-[300px] overflow-hidden md:h-[400px]">
         {phase === "boot" ? (
           <div
             key={`boot-${bootMs}`}
@@ -802,9 +909,9 @@ function Terminal({ p, y }: { p: Project; y: number }) {
 function Contact() {
   const { ref, seen } = useInView<HTMLElement>();
   const items = [
-    { label: "Email", value: "hello@deepanjali.dev", href: "mailto:hello@deepanjali.dev" },
-    { label: "GitHub", value: "github.com/deepanjali", href: "https://github.com" },
-    { label: "LinkedIn", value: "in/deepanjali-nagarkoti", href: "https://linkedin.com" },
+    { label: "Email", value: "deepanjalinagarkoti@gmail.com", href: "mailto:deepanjalinagarkoti@gmail.com" },
+    { label: "LinkedIn", value: "Deepanjali Nagarkoti", href: "https://linkedin.com/in/deepanjali-nagarkoti" },
+    { label: "Website", value: "deepanjalinagarkoti.com.np", href: "https://deepanjalinagarkoti.com.np" },
   ];
   return (
     <section
@@ -834,6 +941,21 @@ function Contact() {
               Open to full-stack and backend roles, and to freelance builds where the schema matters
               as much as the screen.
             </p>
+            <div className="mt-6">
+              <a
+                href="/cv.txt"
+                download
+                className="group relative inline-flex h-11 items-center gap-2 overflow-hidden border border-primary px-5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary"
+              >
+                <span className="relative z-10 transition-colors group-hover:text-primary-foreground">
+                  Download CV
+                </span>
+                <span className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:text-primary-foreground">
+                  ↓
+                </span>
+                <span className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-300 group-hover:translate-x-0" />
+              </a>
+            </div>
           </div>
           <div className="md:col-span-5">
             <ul className="divide-y divide-dashed divide-primary/25 border-y border-dashed border-primary/25">
@@ -872,6 +994,7 @@ function Footer() {
   return (
     <footer className="border-t border-dashed border-primary/25">
       <div className="mx-auto flex max-w-[1500px] flex-wrap justify-between gap-4 px-5 py-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:px-10">
+        <span className="hidden sm:inline">Note: measure twice, migrate once.</span>
         <span>© 2026 Deepanjali Nagarkoti</span>
         <span className="hidden sm:inline">Sheet 01 of 01 — rev. 2026.01</span>
         <a href="#top" className="transition-colors hover:text-primary">

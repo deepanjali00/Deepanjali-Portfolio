@@ -77,17 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Deepanjali Nagarkoti — Software Developer" },
+      { title: "Deepanjali Nagarkoti — Software Engineer" },
       {
         name: "description",
         content:
-          "Portfolio of Deepanjali Nagarkoti — software developer building full-stack web platforms, APIs and real-time systems.",
+          "Portfolio of Deepanjali Nagarkoti — software engineer building full-stack web applications, REST APIs and ML-powered tools.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Deepanjali Nagarkoti — Software Developer" },
+      { property: "og:title", content: "Deepanjali Nagarkoti — Software Engineer" },
+      { property: "og:image", content: "/og.jpg" },
       {
         property: "og:description",
-        content: "Full-stack web platforms, APIs and real-time systems.",
+        content: "Full-stack web applications, REST APIs and ML-powered tools.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
