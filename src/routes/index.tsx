@@ -1,4 +1,5 @@
-import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -9,17 +10,24 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Software engineer building full-stack web applications, REST APIs and ML-powered tools. Blueprint of my experience, skills and shipped work.",
+          "Deepanjali Nagarkoti is a software engineer in Kathmandu, Nepal, building full-stack web applications and applied machine learning tools.",
       },
       { property: "og:title", content: "Deepanjali Nagarkoti — Software Engineer" },
       {
         property: "og:description",
-        content: "Full-stack web applications, REST APIs and ML-powered tools.",
+        content: "Software engineer in Kathmandu, Nepal. Full-stack development and applied ML.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og.jpg" },
+      { property: "og:url", content: "https://deepanjalinagarkoti.com.np/" },
+      { property: "og:image", content: "https://deepanjalinagarkoti.com.np/og.jpg" },
+      {
+        property: "og:image:alt",
+        content: "Deepanjali Nagarkoti — Software Engineer",
+      },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og.jpg" },
+      { name: "twitter:image", content: "https://deepanjalinagarkoti.com.np/og.jpg" },
     ],
   }),
 });
@@ -27,7 +35,6 @@ export const Route = createFileRoute("/")({
 /* ------------------------------------------------------------------ data */
 
 type Project = {
-  n: string;
   title: string;
   tag: string;
   year: string;
@@ -35,18 +42,18 @@ type Project = {
   description: string;
   stack: string[];
   href?: string;
+  codeHref?: string;
   terminal: { cmd: string; out: string; lines: string[] };
 };
 
 const projects: Project[] = [
   {
-    n: "01",
     title: "Tumor Insight",
     tag: "Brain Tumor Classification System",
     year: "2024",
     role: "Full-stack — ML & Web",
     description:
-      "Web app that classifies brain MRI scans into glioma, meningioma, pituitary or no tumor. VGG-16 and ResNet-50 implemented from scratch in TensorFlow/Keras without pretrained weights, trained on 7,023 MRI images and reaching 93.60% (VGG-16) and 91.31% (ResNet-50) test accuracy. Includes upload validation, three free attempts before login, a daily limit for registered users, a report for each result and nearby-doctor suggestions.",
+      "Research project, not a diagnostic tool. Classifies brain MRI scans into glioma, meningioma, pituitary or no tumor. VGG-16 and ResNet-50 implemented from scratch in TensorFlow/Keras without pretrained weights, trained on 7,023 MRI images and reaching 93.60% (VGG-16) and 91.31% (ResNet-50) test accuracy. Includes upload validation, three free attempts before login, a daily limit for registered users, a report for each result and nearby-doctor suggestions.",
     stack: ["Python", "TensorFlow/Keras", "Flask", "React"],
     terminal: {
       cmd: "python app.py",
@@ -59,7 +66,6 @@ const projects: Project[] = [
     },
   },
   {
-    n: "02",
     title: "EarnVault",
     tag: "Microfinance & Savings Platform",
     year: "2025",
@@ -68,6 +74,7 @@ const projects: Project[] = [
       "Monorepo (Turborepo) with a responsive PWA, an admin dashboard and a NestJS API. The PWA lets members complete KYC, upload documents, track savings and apply for loans; the admin dashboard handles financial reporting and loan management. Implemented savings, interest accrual, microloans, EMI calculations and transaction tracking, and made monthly interest crediting safe to re-run so no month is credited twice.",
     stack: ["React", "NestJS", "PostgreSQL", "PWA", "Turborepo"],
     href: "https://earnvault.app",
+    codeHref: "https://github.com/deepanjali00/Earn-Vault",
     terminal: {
       cmd: "pnpm nest start",
       out: "EarnVault API ready · :3000",
@@ -79,44 +86,6 @@ const projects: Project[] = [
       ],
     },
   },
-  {
-    n: "03",
-    title: "Heatwave Forecasting",
-    tag: "Anticipatory Action Dashboard",
-    year: "2025",
-    role: "Full-stack — Frontend & Integration",
-    description:
-      "Leaflet-based forecasting dashboard with real-time DHM weather data, interactive WMS maps and multiple models (DHMWRF, GFS), optimised with React Query caching. Built for anticipatory action, surfacing heatwave risk to responders.",
-    stack: ["React", "Leaflet", "React Query", "TypeScript", "WMS"],
-    terminal: {
-      cmd: "pnpm dev",
-      out: "Heatwave dashboard ready · :5173",
-      lines: [
-        "[Vite] LOG  dev server running · :5173",
-        "[WMS]  LOG  DHM layers loaded · 4 sources",
-        "[RQ]   LOG  cache warmed · forecast models",
-      ],
-    },
-  },
-  {
-    n: "04",
-    title: "Civic Alert Platform",
-    tag: "Citizen Incident Reporting",
-    year: "2025",
-    role: "Full-stack — API & Web",
-    description:
-      "Citizen alert and incident-reporting platform: REST APIs, database models and responsive interfaces, incident management workflows, JWT/OTP login, Mapbox-based maps and multilingual support.",
-    stack: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "Mapbox"],
-    terminal: {
-      cmd: "pnpm nest start",
-      out: "Civic alert API ready · :3000",
-      lines: [
-        "[Nest] LOG  Mapped {/incidents, GET}",
-        "[Auth] LOG  JWT/OTP gateway ready",
-        "[Map]  LOG  Mapbox token loaded",
-      ],
-    },
-  },
 ];
 
 const experience = [
@@ -125,25 +94,12 @@ const experience = [
     company: "Rumsan Associates",
     period: "Jul 2025 — Jun 2026",
     place: "Lalitpur, Nepal",
-    points: [
-      "Built and maintained full-stack web applications for civic technology, fintech and disaster-response projects, mainly with TypeScript, Next.js, NestJS, Prisma and PostgreSQL.",
-      "On a citizen alert and incident-reporting platform, designed the REST APIs, database models and responsive interfaces, and implemented incident management workflows, JWT/OTP login, Mapbox-based maps and multilingual support.",
-      "Built a Leaflet-based forecasting dashboard with real-time DHM weather data, interactive WMS maps and multiple models (DHMWRF, GFS), optimised with React Query caching.",
-      "Developed reusable UI components and shared SDKs, contributing to debugging, refactoring and deployment.",
-    ],
-    stack: ["TypeScript", "Next.js", "NestJS", "Prisma", "PostgreSQL", "Mapbox", "React Query"],
   },
   {
     role: "Software Engineer Trainee",
     company: "TEJ Center",
     period: "Feb 2025 — Jun 2025",
     place: "Lalitpur, Nepal",
-    points: [
-      "Completed an intensive full-stack traineeship and built applications with JavaScript, React.js, Node.js, REST APIs and databases.",
-      "Built frontend and backend features in an Agile team, using Git and GitHub for version control and collaboration.",
-      "Wrote unit, integration and end-to-end tests with Jest and Cypress to catch bugs and confirm that features worked as expected.",
-    ],
-    stack: ["JavaScript", "React", "Node.js", "REST APIs", "Jest", "Cypress"],
   },
 ];
 
@@ -152,50 +108,33 @@ const education = [
     school: "Prime College (affiliated with Tribhuvan University)",
     degree: "B.Sc. Computer Science & Information Technology",
     period: "2021 — 2025",
-    note: "First Division, 75.60% (top 5% of batch). Core coursework: Data Structures and Algorithms, Design and Analysis of Algorithms, Database Systems, Operating Systems, Artificial Intelligence, Software Engineering, Discrete Structures, Calculus and Differential Equations, Linear Algebra, Probability and Statistics, and Numerical Methods.",
   },
 ];
 
 const skills = [
-  { group: "Languages", code: "LNG", items: ["JavaScript", "TypeScript", "SQL", "Python"] },
+  {
+    group: "Languages",
+    items: ["JavaScript", "TypeScript", "SQL", "Python"],
+  },
   {
     group: "Web Development",
-    code: "WEB",
-    items: ["React", "Next.js", "Node.js", "NestJS", "Express.js", "HTML", "Tailwind CSS", "REST APIs"],
+    items: ["React", "Next.js", "Node.js", "NestJS", "Express.js", "Tailwind CSS", "REST APIs"],
   },
   {
     group: "Databases & Tools",
-    code: "DB",
-    items: ["PostgreSQL", "Supabase", "Prisma ORM", "MongoDB", "Git", "GitHub", "Docker", "Postman", "Agile/Scrum"],
+    items: ["PostgreSQL", "Supabase", "MongoDB", "Prisma ORM", "Git", "GitHub", "Docker"],
   },
   {
     group: "ML & Data",
-    code: "ML",
-    items: ["TensorFlow/Keras", "NumPy", "Pandas", "Matplotlib", "CNNs", "scikit-learn", "Model Evaluation"],
-  },
-];
-
-const certifications = [
-  {
-    title: "Full Stack Open",
-    org: "University of Helsinki",
-    date: "Mar 2025",
-    note: "Practical full-stack web development using React, Node.js, REST APIs, databases, and TypeScript.",
-    href: "https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/8eeb3a5c21ed20e936338ee1c66a21f6",
-  },
-  {
-    title: "Advanced Learning Algorithms",
-    org: "DeepLearning.AI",
-    date: "Apr 2024",
-    note: "Neural networks with TensorFlow, model evaluation, and decision tree ensemble methods.",
-    href: "https://coursera.org/share/724eca0a5d7c6759f8acdd33527d6b1c",
-  },
-  {
-    title: "Supervised Machine Learning: Regression and Classification",
-    org: "DeepLearning.AI",
-    date: "Feb 2024",
-    note: "Built supervised machine learning models in Python using NumPy and scikit-learn for regression and binary classification.",
-    href: "https://coursera.org/share/95e74d45077080824bcfb33a095eae4d",
+    items: [
+      "TensorFlow/Keras",
+      "NumPy",
+      "Pandas",
+      "Matplotlib",
+      "CNNs",
+      "scikit-learn",
+      "Model Evaluation",
+    ],
   },
 ];
 
@@ -299,20 +238,17 @@ function Portfolio() {
       <div className="relative z-10">
         <TopBar dark={dark} setDark={setDark} />
         <Hero />
-        <Plate id="experience" code="A-01" label="Experience" meta="2025 —">
+        <Plate id="work" label="Selected Work">
+          <Work />
+        </Plate>
+        <Plate id="experience" label="Experience">
           <Timeline items={experience.map(expToNode)} />
         </Plate>
-        <Plate id="education" code="A-02" label="Education" meta="2021 — 2025">
-          <Timeline items={education.map(eduToNode)} />
-        </Plate>
-        <Plate id="skills" code="A-03" label="Skills" meta="Toolset">
+        <Plate id="skills" label="Skills">
           <Skills />
         </Plate>
-        <Plate id="certifications" code="A-04" label="Certifications" meta="Credentials">
-          <Certifications />
-        </Plate>
-        <Plate id="work" code="A-05" label="Selected Work" meta="Build log">
-          <Work />
+        <Plate id="education" label="Education">
+          <Timeline items={education.map(eduToNode)} />
         </Plate>
         <Contact />
         <Footer />
@@ -345,7 +281,7 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
         <div className="hidden font-mono text-[10px] uppercase leading-tight tracking-[0.18em] text-muted-foreground sm:block">
           Deepanjali Nagarkoti
           <br />
-          <span className="text-primary/70">Software Developer</span>
+          <span className="text-primary/70">Software Engineer</span>
         </div>
 
         <nav className="ml-auto hidden items-center gap-0 border border-dashed border-primary/25 font-mono text-[10px] uppercase tracking-[0.16em] md:flex">
@@ -358,12 +294,12 @@ function TopBar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
               {l.label}
             </a>
           ))}
-          <RouterLink
+          <Link
             to="/blog"
             className="px-3.5 py-2.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground"
           >
             Blog
-          </RouterLink>
+          </Link>
         </nav>
 
         <div className="ml-auto flex items-center gap-2 md:ml-0">
@@ -400,19 +336,7 @@ function Ticks() {
   );
 }
 
-function Plate({
-  id,
-  code,
-  label,
-  meta,
-  children,
-}: {
-  id: string;
-  code: string;
-  label: string;
-  meta?: string;
-  children: React.ReactNode;
-}) {
+function Plate({ id, label, children }: { id: string; label: string; children: React.ReactNode }) {
   const { ref, seen } = useInView<HTMLElement>();
   return (
     <section
@@ -424,16 +348,8 @@ function Plate({
     >
       <div className="frame relative bg-background/40 p-5 md:p-10">
         <Ticks />
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-3 border-b border-dashed border-primary/25 pb-4 md:mb-12">
-          <div className="flex items-baseline gap-3">
-            <span className="font-mono text-[10px] tracking-[0.2em] text-primary">{code}</span>
-            <h2 className="font-display text-2xl font-semibold md:text-4xl">{label}</h2>
-          </div>
-          {meta ? (
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              {meta}
-            </span>
-          ) : null}
+        <div className="mb-8 border-b border-dashed border-primary/25 pb-4 md:mb-12">
+          <h2 className="font-display text-2xl font-semibold md:text-4xl">{label}</h2>
         </div>
         {children}
       </div>
@@ -445,65 +361,95 @@ function Plate({
 
 function Hero() {
   return (
-    <section id="top" className="mx-auto max-w-[1500px] px-5 pb-20 pt-14 md:px-10 md:pb-28 md:pt-24">
-      <div className="grid gap-10 md:grid-cols-12 md:gap-8">
-        <div className="md:col-span-8">
-          <div className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-primary">
+    <section
+      id="top"
+      className="mx-auto max-w-[1500px] px-5 pb-24 pt-16 md:px-10 md:pb-32 md:pt-24"
+    >
+      <div className="grid items-center gap-12 md:grid-cols-12 md:gap-8">
+        <div className="md:col-span-7">
+          <div className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-primary">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary animate-pulse-ring" />
-            Sheet 01 — Available for work
+            Software Engineer · Full-stack Developer
           </div>
-          <h1 className="font-display text-[clamp(2.8rem,9vw,8.5rem)] font-bold leading-[0.9]">
-            <span className="block animate-fade-up">Systems</span>
-            <span
-              className="block animate-fade-up text-primary"
-              style={{ animationDelay: "0.12s" }}
-            >
-              that hold
-            </span>
-            <span className="block animate-fade-up" style={{ animationDelay: "0.24s" }}>
-              under load.
-            </span>
+          <h1 className="font-display text-[clamp(2.7rem,6.2vw,5.5rem)] font-semibold leading-[0.98] tracking-[-0.045em]">
+            Deepanjali
+            <span className="mt-2 block text-primary">Nagarkoti</span>
           </h1>
           <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            I'm <span className="text-foreground">Deepanjali</span>, a full-stack developer who
-            designs the schema, writes the API and ships the interface. I've built
-            disaster-response dashboards, civic alert platforms and cooperative fintech, and I'm
-            now moving into applied ML.
+            I&apos;m a software engineer from Kathmandu, Nepal. I build full-stack web applications
+            and APIs, and I&apos;m exploring applied machine learning.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#work"
+              className="group relative inline-flex h-12 items-center overflow-hidden border border-primary px-5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary"
+            >
+              <span className="relative z-10 transition-colors group-hover:text-primary-foreground">
+                Explore my work
+              </span>
+              <span className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-300 group-hover:translate-x-0" />
+            </a>
+            <a
+              href="mailto:deepanjalinagarkoti@gmail.com"
+              className="inline-flex h-12 items-center border border-dashed border-primary/35 px-5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+            >
+              Get in touch
+            </a>
+          </div>
+          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-dashed border-primary/20 pt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+            <span>Kathmandu, Nepal</span>
+            <span>B.Sc. Computer Science &amp; IT</span>
+          </div>
         </div>
 
-        {/* spec card */}
-        <aside className="md:col-span-4">
-          <div className="frame relative h-full animate-float-slow bg-card/60 p-5 backdrop-blur-sm">
+        <div className="md:col-span-5">
+          <div className="frame relative mx-auto max-w-[470px] overflow-hidden bg-card/55 p-5 sm:p-7 md:ml-auto">
             <Ticks />
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
-              Specification
-            </div>
-            <dl className="mt-5 space-y-3 font-mono text-[11px]">
-              {[
-                ["Role", "Software Engineer"],
-                ["Base", "Kathmandu, NP · UTC+5:45"],
-                ["Focus", "Full-stack · ML"],
-                ["Scale", "Web apps & AI"],
-                ["Languages", "Nepali · English (C2)"],
-                ["Status", "Open to roles · relocation"],
-              ].map(([k, v]) => (
-                <div key={k} className="flex items-baseline gap-2">
-                  <dt className="uppercase tracking-[0.14em] text-muted-foreground">{k}</dt>
-                  <span
-                    aria-hidden
-                    className="mx-1 flex-1 border-b border-dotted border-primary/35"
-                  />
-                  <dd className="text-right text-foreground">{v}</dd>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl"
+            />
+            <div className="relative">
+              <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
+                <span>A little about me</span>
+                <span className="text-primary">PROFILE</span>
+              </div>
+              <div className="relative mt-7 flex aspect-[1.35] items-center justify-center overflow-hidden border border-dashed border-primary/25 bg-background/70">
+                <div aria-hidden className="absolute inset-0 blueprint-grid opacity-60" />
+                <div
+                  aria-hidden
+                  className="absolute h-44 w-44 rounded-full border border-primary/15 sm:h-52 sm:w-52"
+                />
+                <div
+                  aria-hidden
+                  className="absolute h-32 w-32 rounded-full border border-dashed border-primary/25 sm:h-40 sm:w-40"
+                />
+                <span className="relative font-display text-[clamp(5rem,14vw,9rem)] font-bold leading-none tracking-[-0.1em] text-primary/90">
+                  DN
+                </span>
+                <span className="absolute bottom-4 left-4 font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Software · People · Purpose
+                </span>
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="border-l border-primary/50 pl-3">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
+                    I work with
+                  </div>
+                  <div className="mt-2 font-display text-sm sm:text-base">TypeScript · React</div>
                 </div>
-              ))}
-            </dl>
-            <div className="mt-6 h-px w-full bg-gradient-to-r from-primary/60 to-transparent" />
-            <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Rev. 2026.01 — scale 1:1
+                <div className="border-l border-primary/50 pl-3">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
+                    I care about
+                  </div>
+                  <div className="mt-2 font-display text-sm sm:text-base">
+                    Useful, thoughtful software
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </aside>
+        </div>
       </div>
     </section>
   );
@@ -517,21 +463,15 @@ function expToNode(e: (typeof experience)[number]): TimelineNode {
   return {
     key: e.company,
     title: e.role,
-    meta: `${e.period}  ·  ${e.company}  ·  ${e.place}`,
+    meta: e.company,
     body: (
-      <>
-        <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted-foreground md:text-base">
-          {e.points.map((pt) => (
-            <li key={pt} className="flex gap-3">
-              <span aria-hidden className="pt-1 font-mono text-[10px] text-primary">
-                ▸
-              </span>
-              <span>{pt}</span>
-            </li>
-          ))}
-        </ul>
-        <Chips items={e.stack} />
-      </>
+      <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground md:text-[11px]">
+        <span>{e.period}</span>
+        <span aria-hidden className="text-primary/60">
+          ·
+        </span>
+        <span>{e.place}</span>
+      </div>
     ),
   };
 }
@@ -541,11 +481,7 @@ function eduToNode(e: (typeof education)[number]): TimelineNode {
     key: e.school,
     title: e.degree,
     meta: `${e.period}  ·  ${e.school}`,
-    body: e.note ? (
-      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
-        {e.note}
-      </p>
-    ) : null,
+    body: null,
   };
 }
 
@@ -590,7 +526,7 @@ function Timeline({ items }: { items: TimelineNode[] }) {
             </span>
             <div
               className={`transition-all duration-700 ${
-                reached ? "translate-x-0 opacity-100" : "translate-x-2 opacity-45"
+                reached ? "translate-x-0 opacity-100" : "translate-x-2 opacity-80"
               }`}
             >
               <h3 className="font-display text-xl font-semibold leading-tight md:text-3xl">
@@ -662,44 +598,13 @@ function Skills() {
 
 /* ------------------------------------------------------------------ certifications */
 
-function Certifications() {
-  return (
-    <div className="space-y-4">
-      {certifications.map((c) => (
-        <a
-          key={c.title}
-          href={c.href}
-          target="_blank"
-          rel="noreferrer"
-          className="group block border border-dashed border-primary/25 p-5 transition-colors hover:border-primary hover:bg-primary/5"
-        >
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h3 className="font-display text-lg font-semibold tracking-tight md:text-xl">
-              {c.title}
-            </h3>
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              {c.org} · {c.date}
-            </span>
-          </div>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
-            {c.note}
-          </p>
-          <span className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.18em] text-primary">
-            View certificate ↗
-          </span>
-        </a>
-      ))}
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------ work */
 
 function Work() {
   return (
     <div className="space-y-14">
       {projects.map((p) => (
-        <ProjectEntry key={p.n} p={p} />
+        <ProjectEntry key={p.title} p={p} />
       ))}
     </div>
   );
@@ -714,7 +619,6 @@ function ProjectEntry({ p }: { p: Project }) {
       </div>
       <div className="flex flex-col md:col-span-7">
         <div className="flex items-baseline gap-3">
-          <span className="font-mono text-[11px] text-primary">{p.n}</span>
           <h3 className="font-display text-3xl font-semibold tracking-tight md:text-5xl">
             {p.title}
           </h3>
@@ -730,25 +634,37 @@ function ProjectEntry({ p }: { p: Project }) {
           {p.role}
         </div>
         <Chips items={p.stack} />
-        {p.href ? (
-          <div className="mt-7">
-            <a
-              href={p.href}
-              target="_blank"
-              rel="noreferrer"
-              className="group relative inline-flex h-11 items-center gap-2 overflow-hidden border border-primary px-5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary"
-            >
-              <span className="relative z-10 transition-colors group-hover:text-primary-foreground">
-                Live demo
-              </span>
-              <span
-                aria-hidden
-                className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:text-primary-foreground"
+        {p.codeHref || p.href ? (
+          <div className="mt-7 flex flex-wrap gap-3">
+            {p.codeHref ? (
+              <a
+                href={p.codeHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-11 items-center gap-2 border border-dashed border-primary/50 px-5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary transition-colors hover:bg-primary/10"
               >
-                ↗
-              </span>
-              <span className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-300 group-hover:translate-x-0" />
-            </a>
+                View code <span aria-hidden>↗</span>
+              </a>
+            ) : null}
+            {p.href ? (
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative inline-flex h-11 items-center gap-2 overflow-hidden border border-primary px-5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary"
+              >
+                <span className="relative z-10 transition-colors group-hover:text-primary-foreground">
+                  Live demo
+                </span>
+                <span
+                  aria-hidden
+                  className="relative z-10 transition-transform group-hover:translate-x-1 group-hover:text-primary-foreground"
+                >
+                  ↗
+                </span>
+                <span className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-300 group-hover:translate-x-0" />
+              </a>
+            ) : null}
           </div>
         ) : null}
       </div>
@@ -756,50 +672,21 @@ function ProjectEntry({ p }: { p: Project }) {
   );
 }
 
-const previews = [
-  {
-    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-    label: "admin dashboard — member ledger",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    label: "interest accrual analytics",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
-    label: "loan disbursement flow",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
-    label: "member PWA — passbook",
-  },
-];
-
-const SLIDE_MS = 3200;
-
 function Terminal({ p, y }: { p: Project; y: number }) {
   const [phase, setPhase] = useState<"boot" | "preview">("boot");
-  const [slide, setSlide] = useState(0);
 
   const bootMs = 300 + (p.terminal.lines.length + 1) * 350 + 1400;
+  const previewMs = 7000;
 
   useEffect(() => {
-    if (phase !== "boot") return;
-    const t = setTimeout(() => {
-      setSlide(0);
-      setPhase("preview");
-    }, bootMs);
+    const t = setTimeout(
+      () => {
+        setPhase((current) => (current === "boot" ? "preview" : "boot"));
+      },
+      phase === "boot" ? bootMs : previewMs,
+    );
     return () => clearTimeout(t);
-  }, [phase, bootMs]);
-
-  useEffect(() => {
-    if (phase !== "preview") return;
-    const t = setTimeout(() => {
-      if (slide < previews.length - 1) setSlide((s) => s + 1);
-      else setPhase("boot");
-    }, SLIDE_MS);
-    return () => clearTimeout(t);
-  }, [phase, slide]);
+  }, [phase, bootMs, previewMs]);
 
   return (
     <div className="relative overflow-hidden border border-primary/30 bg-[#080d18] shadow-[0_20px_60px_-30px_var(--draft)]">
@@ -862,44 +749,117 @@ function Terminal({ p, y }: { p: Project; y: number }) {
             </div>
           </div>
         ) : (
-          <div className="absolute inset-0 animate-boot-in">
-            {previews.map((pv, i) => (
-              <img
-                key={pv.src}
-                src={pv.src}
-                alt={`${p.title} preview — ${pv.label}`}
-                loading="lazy"
-                className={`absolute inset-0 h-full w-full object-cover transition-all duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  i === slide
-                    ? "animate-ken-burns opacity-100 blur-0"
-                    : i < slide
-                      ? "-translate-x-6 scale-105 opacity-0 blur-md"
-                      : "translate-x-6 scale-105 opacity-0 blur-md"
-                }`}
-              />
-            ))}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#080d18]/90 via-[#080d18]/10 to-[#080d18]/40" />
-            <div className="pointer-events-none absolute inset-0 opacity-25 bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.06)_0px,rgba(255,255,255,0.06)_1px,transparent_1px,transparent_3px)]" />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 animate-scan bg-gradient-to-b from-[#79c0ff]/25 to-transparent" />
-
-            <div className="absolute bottom-3 left-3 right-3 flex items-center gap-3">
-              <span key={slide} className="animate-fade-up font-mono text-[10px] text-[#79c0ff]">
-                {previews[slide]?.label}
-              </span>
-              <div className="ml-auto flex gap-1.5">
-                {previews.map((_, i) => (
-                  <span
-                    key={i}
-                    className={`h-1 transition-all duration-500 ${
-                      i === slide ? "w-6 bg-[#79c0ff]" : "w-2 bg-white/25"
-                    }`}
-                  />
-                ))}
-              </div>
+          <div key={`${p.title}-preview`} className="absolute inset-0 animate-boot-in">
+            <div className="absolute inset-0 animate-ken-burns">
+              <ProjectPreview project={p} />
             </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-25 bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,0.06)_0px,rgba(255,255,255,0.06)_1px,transparent_1px,transparent_3px)]"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-16 animate-scan bg-gradient-to-b from-[#79c0ff]/25 to-transparent"
+            />
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function ProjectPreview({ project }: { project: Project }) {
+  const isTumorInsight = project.title === "Tumor Insight";
+
+  return (
+    <div
+      aria-label={`${project.title} interface preview`}
+      className="absolute inset-0 animate-boot-in overflow-hidden bg-[#0d1420] p-4 text-white sm:p-6"
+    >
+      <div className="flex items-center justify-between border-b border-white/10 pb-3 font-mono text-[9px] uppercase tracking-[0.16em] text-white/55 sm:text-[10px]">
+        <span>{isTumorInsight ? "Tumor Insight / Research" : "EarnVault / Member ledger"}</span>
+        <span className="text-[#79c0ff]">UI concept preview</span>
+      </div>
+      {isTumorInsight ? (
+        <div className="grid h-[calc(100%-2.5rem)] grid-cols-[1fr_1.1fr] items-center gap-3 sm:gap-5">
+          <div className="relative mx-auto aspect-square w-full max-w-[190px] overflow-hidden rounded-full border border-[#79c0ff]/40 bg-[radial-gradient(ellipse_at_45%_42%,#76879a_0%,#344356_28%,#111d2b_65%,#060b12_100%)] shadow-[0_0_35px_#79c0ff22]">
+            <span className="absolute inset-[18%] rounded-full border border-white/15" />
+            <span className="absolute inset-[34%] rounded-full border border-white/20" />
+            <span className="absolute left-1/2 top-0 h-full w-px bg-white/15" />
+            <span className="absolute left-0 top-1/2 h-px w-full bg-white/15" />
+            <span className="absolute left-[56%] top-[38%] h-3 w-3 rounded-full bg-[#79c0ff]/80 blur-[2px]" />
+          </div>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="font-mono text-[9px] uppercase tracking-[0.15em] text-white/45 sm:text-[10px]">
+              Test accuracy
+            </div>
+            <div className="font-display text-lg leading-tight sm:text-2xl">Model comparison</div>
+            <div className="space-y-2">
+              {[
+                ["VGG-16", "93.60%"],
+                ["ResNet-50", "91.31%"],
+              ].map(([label, accuracy]) => (
+                <div key={label} className="flex items-center gap-2">
+                  <span className="w-16 text-[9px] text-white/60 sm:w-20 sm:text-[10px]">
+                    {label}
+                  </span>
+                  <span className="font-mono text-[9px] text-[#79c0ff] sm:text-[10px]">
+                    {accuracy}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="text-[9px] leading-relaxed text-white/45 sm:text-[10px]">
+              Research project — not a diagnostic tool.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-4 grid grid-cols-[1fr_2fr] gap-3 sm:mt-5 sm:gap-5">
+          <aside className="space-y-2 border-r border-white/10 pr-2 font-mono text-[8px] text-white/50 sm:space-y-3 sm:text-[9px]">
+            <div className="pb-2 text-[9px] uppercase tracking-[0.12em] text-[#79c0ff] sm:text-[10px]">
+              Overview
+            </div>
+            <div>Savings</div>
+            <div>Passbook</div>
+            <div>Loans</div>
+            <div>Profile</div>
+          </aside>
+          <div className="min-w-0">
+            <div className="font-display text-sm sm:text-lg">Member passbook</div>
+            <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-3">
+              {[
+                ["Total savings", "NPR ••••••"],
+                ["Interest earned", "NPR ••••••"],
+              ].map(([label, value]) => (
+                <div key={label} className="border border-white/10 bg-white/[0.03] p-2 sm:p-3">
+                  <div className="text-[8px] text-white/45 sm:text-[9px]">{label}</div>
+                  <div className="mt-1 font-mono text-[10px] text-[#79c0ff] sm:text-xs">
+                    {value}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 border border-white/10 sm:mt-4">
+              {[
+                ["Monthly savings", "Transaction"],
+                ["Interest credit", "Transaction"],
+                ["Loan repayment", "Transaction"],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="flex justify-between gap-2 border-b border-white/10 px-2 py-2 last:border-0 sm:px-3"
+                >
+                  <span className="truncate text-[8px] text-white/55 sm:text-[9px]">{label}</span>
+                  <span className="whitespace-nowrap font-mono text-[8px] text-white/80 sm:text-[9px]">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -909,9 +869,30 @@ function Terminal({ p, y }: { p: Project; y: number }) {
 function Contact() {
   const { ref, seen } = useInView<HTMLElement>();
   const items = [
-    { label: "Email", value: "deepanjalinagarkoti@gmail.com", href: "mailto:deepanjalinagarkoti@gmail.com" },
-    { label: "LinkedIn", value: "Deepanjali Nagarkoti", href: "https://linkedin.com/in/deepanjali-nagarkoti" },
-    { label: "Website", value: "deepanjalinagarkoti.com.np", href: "https://deepanjalinagarkoti.com.np" },
+    {
+      label: "Email",
+      value: "deepanjalinagarkoti@gmail.com",
+      href: "mailto:deepanjalinagarkoti@gmail.com",
+      icon: Mail,
+      iconColor: "#EA4335",
+      iconTileClass: "border-dashed border-primary/30",
+    },
+    {
+      label: "LinkedIn",
+      value: "Deepanjali Nagarkoti",
+      href: "https://linkedin.com/in/deepanjali-nagarkoti",
+      icon: Linkedin,
+      iconColor: "#0A66C2",
+      iconTileClass: "border-dashed border-primary/30",
+    },
+    {
+      label: "GitHub",
+      value: "github.com/deepanjali00",
+      href: "https://github.com/deepanjali00",
+      icon: Github,
+      iconColor: "#181717",
+      iconTileClass: "border-[#f0f0f0] bg-[#f0f0f0]",
+    },
   ];
   return (
     <section
@@ -929,9 +910,6 @@ function Contact() {
         />
         <div className="relative grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
-            <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-primary">
-              A-05 — Contact
-            </div>
             <h2 className="mt-4 font-display text-[clamp(2rem,6vw,4.5rem)] font-bold leading-[0.95]">
               Let's draft
               <br />
@@ -943,7 +921,7 @@ function Contact() {
             </p>
             <div className="mt-6">
               <a
-                href="/cv.txt"
+                href="/cv.pdf"
                 download
                 className="group relative inline-flex h-11 items-center gap-2 overflow-hidden border border-primary px-5 font-mono text-[10px] uppercase tracking-[0.18em] text-primary"
               >
@@ -965,17 +943,32 @@ function Contact() {
                     href={c.href}
                     target={c.href.startsWith("http") ? "_blank" : undefined}
                     rel="noreferrer"
-                    className="group flex items-center gap-4 py-4 transition-colors hover:bg-primary/5"
+                    className="group flex min-w-0 items-center gap-3 py-4 transition-colors hover:bg-primary/5 sm:gap-4"
                   >
-                    <span className="w-20 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                    <span className="w-16 shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:w-20">
                       {c.label}
                     </span>
-                    <span className="font-display text-base tracking-tight transition-colors group-hover:text-primary md:text-lg">
+                    <span
+                      className={`grid h-9 w-9 shrink-0 place-items-center border transition-colors ${
+                        c.iconTileClass
+                      } ${
+                        c.label === "GitHub"
+                          ? "group-hover:border-[#f0f0f0] group-hover:bg-[#f0f0f0]"
+                          : "group-hover:border-primary group-hover:bg-primary/10"
+                      }`}
+                    >
+                      <c.icon size={16} strokeWidth={1.8} color={c.iconColor} aria-hidden="true" />
+                    </span>
+                    <span
+                      className={`min-w-0 flex-1 font-display text-sm tracking-tight transition-colors group-hover:text-primary sm:text-base md:text-lg ${
+                        c.label === "Email" ? "break-all" : "break-words"
+                      }`}
+                    >
                       {c.value}
                     </span>
                     <span
                       aria-hidden
-                      className="ml-auto font-mono text-primary transition-transform group-hover:translate-x-1"
+                      className="shrink-0 font-mono text-primary transition-transform group-hover:translate-x-1"
                     >
                       ↗
                     </span>
@@ -996,7 +989,6 @@ function Footer() {
       <div className="mx-auto flex max-w-[1500px] flex-wrap justify-between gap-4 px-5 py-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:px-10">
         <span className="hidden sm:inline">Note: measure twice, migrate once.</span>
         <span>© 2026 Deepanjali Nagarkoti</span>
-        <span className="hidden sm:inline">Sheet 01 of 01 — rev. 2026.01</span>
         <a href="#top" className="transition-colors hover:text-primary">
           Back to top ↑
         </a>

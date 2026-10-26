@@ -1,0 +1,67 @@
+Deepanjali Nagarkoti
+Nationality: Nepalese Date of birth: 06/09/2002 Email address: deepanjalinagarkoti@gmail.com
+LinkedIn: Deepanjali Nagarkoti Website: https://deepanjalinagarkoti.com.np Address: Kathmandu, Nepal (Home)
+
+EDUCATION & TRAINING
+Bachelor of Science in Computer Science and Information Technology
+Prime College [ 04/06/2021 - 10/06/2025 ]
+City: Kathmandu | Country: Nepal
+Final grade: 75.60% | Level in EQF: 6
+Grading Context: Prime College is affiliated with Tribhuvan University (TU), Nepal. The B.Sc. CSIT programme reports results as a percentage. Result: First Division. Pass mark: 40%. Highest division: Distinction, above 80%.
+Core coursework: Data Structures and Algorithms, Design and Analysis of Algorithms, Database Systems, Operating Systems, Artificial Intelligence, Software Engineering, Discrete Structures, Calculus and Differential Equations, Linear Algebra, Probability and Statistics, and Numerical Methods.
+
+WORK EXPERIENCE
+Rumsan Associates - Nepal, Lalitpur
+Software Engineer
+[ 01/07/2025 - 30/06/2026 ]
+- Built and maintained full-stack web applications for civic technology, fintech and disaster-response projects, mainly with TypeScript, Next.js, NestJS, Prisma and PostgreSQL.
+- On a citizen alert and incident-reporting platform, designed the REST APIs, database models and responsive interfaces, and implemented incident management workflows, JWT/OTP login, Mapbox-based maps and multilingual support.
+- Contributed to a heatwave forecasting system for anticipatory action: integrated real-time DHM (Department of Hydrology and Meteorology) weather data with interactive WMS maps and built a Leaflet-based dashboard supporting multiple forecast models (DHMWRF, GFS), with React Query caching to improve performance.
+- Developed reusable UI components and shared SDKs, contributing to debugging, refactoring, and deployment.
+
+TEJ Center - Nepal, Lalitpur
+Software Engineer Trainee
+[ 03/02/2025 - 06/06/2025 ]
+- Completed an intensive full-stack traineeship and built applications with JavaScript, React.js, Node.js, REST APIs and databases.
+- Built frontend and backend features in an Agile team, using Git and GitHub for version control and collaboration.
+- Wrote unit, integration and end-to-end tests with Jest and Cypress to catch bugs and confirm that features worked as expected.
+
+PROJECTS
+Tumor Insight: Brain Tumor Classification System (Python, TensorFlow/Keras, Flask, React)
+- Built a web app that classifies brain MRI scans into glioma, meningioma, pituitary or no tumor.
+- Implemented VGG-16 and ResNet-50 from scratch in TensorFlow/Keras, without pretrained weights.
+- Trained on 7,023 MRI images and reached 93.60% (VGG-16) and 91.31% (ResNet-50) test accuracy.
+- Added upload validation, three free attempts before login, a daily limit for registered users, a report for each result and nearby-doctor suggestions.
+
+EarnVault: Microfinance & Savings Platform (React, NestJS, PostgreSQL, PWA)
+- Built a monorepo (Turborepo) with a responsive PWA, an admin dashboard and a NestJS API.
+- PWA lets members complete KYC, upload documents, track savings and apply for loans.
+- Admin dashboard handles financial reporting and loan management.
+- Implemented savings, interest accrual, microloans, EMI calculations and transaction tracking.
+- Made monthly interest crediting safe to re-run, so no month is credited twice.
+
+LANGUAGE SKILLS
+Mother tongue(s): Nepali
+English
+LISTENING: C2 READING: C1 WRITING: B2
+SPOKEN PRODUCTION: C1
+SPOKEN INTERACTION: C1
+
+SKILLS
+Programming Languages: JavaScript | TypeScript | SQL | Python
+Web Development: React | Next.js | Node.js | NestJS | Express.js | HTML | Tailwind CSS | REST APIs
+Databases & Tools: Git | GitHub | Docker | Postman | Agile/Scrum | PostgreSQL | Supabase | Prisma ORM | MongoDB
+Machine Learning & Data: TensorFlow/Keras | NumPy | Pandas | Matplotlib | CNNs | scikit-learn | Model Evaluation
+
+CERTIFICATIONS
+[ University of Helsinki, 10/03/2025 ]
+Full Stack Open - Practical full-stack web development using React, Node.js, REST APIs, databases, and TypeScript.
+Link: https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/8eeb3a5c21ed20e936338ee1c66a21f6
+
+[ DeepLearning.AI, 20/04/2024 ]
+Advanced Learning Algorithms - Neural networks with TensorFlow, model evaluation, and decision tree ensemble methods.
+Link: https://coursera.org/share/724eca0a5d7c6759f8acdd33527d6b1c
+
+[ DeepLearning.AI, 20/02/2024 ]
+Supervised Machine Learning: Regression and Classification - Built supervised machine learning models in Python using NumPy and scikit-learn for regression and binary classification, including linear and logistic regression.
+Link: https://coursera.org/share/95e74d45077080824bcfb33a095eae4d

@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Portfolio of Deepanjali Nagarkoti — software engineer building full-stack web applications, REST APIs and ML-powered tools.",
+          "Portfolio of Deepanjali Nagarkoti, a software engineer in Kathmandu, Nepal, focused on full-stack development and applied machine learning.",
       },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "Deepanjali Nagarkoti — Software Engineer" },
       { property: "og:image", content: "/og.jpg" },
       {
         property: "og:description",
-        content: "Full-stack web applications, REST APIs and ML-powered tools.",
+        content: "Software engineer in Kathmandu, Nepal. Full-stack development and applied ML.",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
